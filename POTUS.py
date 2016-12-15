@@ -142,7 +142,7 @@ from Universe import *
 #            Natural Language NLTK 3.0
 #********************************************************************
 
-import nltk
+#import nltk
 
 #********************************************************************
 #                          G A M E   D A T A
@@ -182,10 +182,14 @@ Game.Version   = "1.0.1 Alpha"
 
 
 Game.IntroText = """
-    "After a big party last night following the Presidential Inauguration Ceremony, this is your first day of being President Of The United States (POTUS). Everyone thinks you will be the worst President ever, but you plan on proving them wrong."  ~p
-    "In fact you have managed to finish a secret plan to defeat ISIS, after looking them up on Google... and it's in your desk draw."  ~p
-    "You need to go and meet with The Joint Chiefs who are waiting for you in the Situation Room and start making America Great Again."  ~p
-"""
+                 After a big party last night following the Presidential Inauguration Ceremony, 
+                 this is your first day of being President Of The United States (POTUS). Everyone 
+                 thinks you will be the worst President ever, but you plan on proving them wrong.
+                 In fact you have managed to finish a secret plan to defeat ISIS, after looking 
+                 them up on Google... and it's in your desk draw. You need to go and meet with 
+                 The Joint Chiefs who are waiting for you in the Situation Room and start making 
+                 America Great Again. ~p
+                 """
 
 
 #********************************************************************************
@@ -517,9 +521,7 @@ OvalOffice.SetDesc("L","""
                        fireplace at the north end. It has four doors: the east door opens to the Rose Garden;
                        the west door leads to a private study and dining room; the northwest door opens onto
                        the main corridor of the West Wing; and the northeast door opens to the office of the
-                       President's Secretary.
-                       It is the official office of the President of the United States. It is located in the
-                       West Wing of the White House Complex.
+                       President's Secretary. It is the official office of the President of the United States.
                        """)
 
 OvalOffice.SetDesc("Odor","There's a faint whiff of pine needles.")
@@ -643,7 +645,7 @@ RoseGarden.SetDesc("L","""
                        is approximately 125 feet long and 60 feet wide. It balances the Jacqueline
                        Kennedy Garden on the east side of the White House Complex.
 
-                       The West colonade is north, the South Lawn is south and the Kennedy Garden
+                       The West colonnade is north, the South Lawn is south and the Kennedy Garden
                        is east.
                        """)
 
@@ -1179,41 +1181,6 @@ PressCorps.SetDesc("Sound","You can hear the sound of crickets chirping.")
 
 
 
-#====================================================================
-#                                   Druid's Robe
-#====================================================================
-
-# The druid's robe is scenery, it doesn't appear in room descriptions.
-# The other interesting thing about it is the Location property, the
-# robe returns the Druid's location (which, since the player will
-# never get their hands on it is natural enough).
-
-class ClassRobe(ClassScenery):
-    def Where(self): return Druid.Where()
-
-Robe = ClassRobe("robe","brown,man's,his,druid's")
-Robe.StartingLocation = OvalOffice
-
-Robe.SetDesc("Feel","""
-                    He doesn't look as though he'd appreciate your
-                    pawing his robe.
-                    """)
-
-Robe.SetDesc("L","""
-                 It looks to be brown homespun, something a monk would
-                 wear. Not very valuable at all. It has long flowing
-                 sleeves and a cowl. In some ways (except for the
-                 color, material, and cowl) it reminds you of the
-                 robe the wizard was wearing when he caught you.
-                 """)
-
-Robe.SetDesc("Odor","Any odor the robe might have is overwhelmed by his own pungent odor.")
-
-Robe.SetDesc("Taste","""
-                     Do you really feel like licking odorous homespun?
-                     I sure don\'t!
-                     """)
-
 
 #=====================================================================
 #                                   Druid
@@ -1265,7 +1232,7 @@ class ClassDruid(ClassPOTUSActor):
         # Move the druid into None and give the player the mandala
 
         self.MoveInto(None)
-        Global.Player.Enter(Mandala)
+        Global.Player.Enter(phone)
 
         #--------------
         # Give the Clue
@@ -1277,10 +1244,10 @@ class ClassDruid(ClassPOTUSActor):
                the mandala, the sacred circle of the druids.  Take it,
                and let it be your shield and your sword in the places
                of the dark.  To summon its aid, cry aloud the word
-               'Nirna', but do so only in dire need, for the mandala
+               ‘Siri’, but do so only in dire need, for the iPhone 7
                is a sacred object, and not for profane use."  He hands
-               you a small crystal disk, divided into four quarters.
-               Bowing the man turns and walks into the forest.
+               you a mobile phone, made from dark metal. Bowing the man 
+               turns and disappears into a dark portal.
                """
 
     
@@ -1295,28 +1262,7 @@ class ClassDruid(ClassPOTUSActor):
                feet.
                """
         
-        if CarefullyAdverb.Applies() or CloselyAdverb.Applies():
-            Text = Text + """
-                           Your trained eye notes that his body stance seems wrong
-                          for the humble robe he's wearing, something tells you
-                          he'd be more at home in a merchant house than this odd
-                          forest.
-                          """
-            if Rock in P.CA().Contents:
-                self.Alerted = TRUE
-                Text = Text + """
-                               The man seems to be peering toward a bulge in your
-                               pocket--the rock you found perhaps? 'Don't win this
-                               damnable game.' he whispers urgently. 'We're all
-                               trapped here. Help us!' Looking around the man
-                               bears an uncanny resemblence to a thief expecting
-                               the city watch to show up any second. 'I've said
-                               too much. But for all our sakes ~b don't win ~l
-                               the game!' With that cryptic utterance 
-                               he resumes his act of calm indifference.
-                               """
-
-        return Text
+         return Text
                        
         
     #-----------
@@ -1372,180 +1318,6 @@ Druid.IsHim = TRUE
 Druid.StartingLocation = OvalOffice
 
 
-#====================================================================
-#                                   Dryad's Dress
-#====================================================================
-
-# The dryad's dress is scenery, it doesn't appear in room
-# descriptions. The other interesting thing about it is the Where()
-# method, the dress returns the Dryad's location (which, since the
-# player will never get their hands on it is natural enough).
-
-class ClassDress(ClassScenery):
-    def Where(self): return Dryad.Where()
-
-Dress = ClassDress("dress","woman's,dryad's")
-Dress.AdjectivePhrase = ""
-Dress.StartingLocation = Cabinet
-
-
-Dress.SetDesc("Feel","""
-                     She's 30 feet away, and doesn't look as though
-                     she'd appreciate your pawing her dress.
-                     """)
-
-Dress.SetDesc("L","""
-                 From this distance it's hard to tell, but you're
-                 almost certain her dress is made of REAL maple
-                 leaves, sown together in some way. Why the dead
-                 leaves (which are red and gold) don't crumble into
-                 dust is a mystery. Why she's wearing such a bizarre
-                 garment is an even bigger mystery...
-                 """)
-
-Dress.SetDesc("Odor","Any odor the dress might have is overwhelmed by her perfume.")
-
-Dress.SetDesc("Taste","""
-                      She's 30 feet away! Besides, do you really feel
-                      like licking dead leaves? I sure don't!
-                      """)
-
-
-#===========================================================================
-#                                   Dryad
-#===========================================================================
-
-
-# The dryad looks like a red-haired woman. Observant players may note
-# that her hair has golden highlights, or that her dress has strange
-# leaf-like patterns on it, but that's all. If they try to take or
-# attack her she disappears without warning them about the wolf or
-# the druid.
-#
-# That's her only real purpose, other than to delight the player and
-# provide a minor mystery for atmosphere.
-
-
-class ClassDryad(ClassPOTUSActor):
-    def SetMyProperties(self):
-        self.Value = 2
-
-    def ADesc(self): return "her"
-    def FeelDesc(self): return "She's 30 feet away, and doesn't look as though she'd appreciate your pawing her."
-    def HereDesc(self): return "A small red haired woman is watching you from behind a tree."
-
-    
-    def HelloDesc(self):
-
-        #------------------
-        # Make Dryad Vanish
-        #------------------
-
-        # Move the dryad into None and give the player two points for
-        # gaining the clue.
-
-        self.MoveInto(None)
-        IncrementScore(self.Value)
-
-        #--------------
-        # Give the Clue
-        #--------------
-
-        
-        # This clue is actually a cornecopia of clues. In order: the
-        # silver branch (and the birch grove) are protection from the
-        # wolf hiding in the forest, Brenin and the Druid, the crystal
-        # mandala. An obtuse reference to the giant spider and how to
-        # kill it (bright light focused through the mandala).
-
-        # The second clues: Don't rely on the text as printed, listen,
-        # sniff, taste, and feel for clues to survive. And finally
-        # the whole speech should convince the player that he's just
-        # had a supernatural encounter...
-
-        Text = """
-               The woman steps from behind the tree and raises one
-               hand in greeting. Before you can say anything more,
-               she begins to speak, her voice like a golden bell:
-               'Beware, human! Silver leaves guard ye well, for danger
-               lurks, concealed in pleasant fragrances. Seek ye the
-               ancient tree and its guardian, then win from him the
-               sacred circle. Light shall be thy guide and thy guard
-               for the dark has fangs. Heed me if thou wouldst live. ~p
-               
-               She studies you for a moment and adds 'Seek me anon,
-               mortal. Be chary of what thou dost believe in this
-               place. Thine eyes may not be thy surest sentinal, spurn
-               not the lessons of the owl, the wolf, and the wise
-               serpent, for what humankind has forgotten, they have
-               remembered.' ~p
-               """
-               
-        if Rock in Global.Player.Contents:
-            self.Alerted = TRUE
-            Text = Text + """
-                          Her voice suddenly changes, still lovely but definitely
-                          human. 'Don't be stone blind, thief. And listen for 
-                          me.' 
-                          """
-               
-        Text = Text + """
-                      Without warning the woman then turns and fades into the
-                      trees, almost as though she had never been. You could 
-                      almost swear she faded INTO the tree she'd been leaning
-                      against.
-                      """
-
-        return Text
-                       
-    
-    def LDesc(Self):
-        return """
-               The woman is quite beautiful, but there's something eldritch about her that sends
-               chills up and down your spine. And yet it's nothing obvious. Her skin is nut brown,
-               her hair is flaming red with golden highlights. Her eyes are brilliant green,
-               visible in spite of the distance between the two of you. If you saw her in a city
-               you'd call her an exotic beauty. But here and now there's something more... Her
-               dress is somewhat unusual, a pattern of leaves in red and gold, but again nothing
-               that would explain your instinctive belief that there's more than meets the eye
-               here.
-               """
-    
-    def OdorDesc(self):
-        return """
-               Although she's 30 feet away you can detect the faint scent of her perfume, a scent
-               that evokes visions of wild things slipping through the trees. You can feel the
-               hairs on the back of your neck standing on end. No perfume you ever heard of can
-               do that!
-               """
-
-    
-    def SoundDesc(self):
-        return """
-               She stopped singing when you entered the stand of maples,
-               and is now simply standing and watching you quietly.
-               """
-
-    
-    def Take(self,Multiple=FALSE):
-        """Take self"""
-        Complain(self.TakeDesc())
-        self.MoveInto(None)
-
-
-    def TakeDesc(self): return """
-                               The woman gasps, startled. Then she
-                               dodges away, into the trees and out of
-                               sight. For a moment you could swear she
-                               dodged INTO the tree!
-                               """
-    def TasteDesc(self): return "She's 30 feet away!"
-    def TheDesc(self): return "her"
-
-Dryad = ClassDryad("woman,dryad,hers","red,haired,small")
-
-Dryad.IsHer = TRUE
-Dryad.StartingLocation = OvalOffice
 
 
 #===========================================================================
@@ -1578,7 +1350,7 @@ class ClassPOTUSPlayer(ClassPlayer):
     #------------
 
     def SoundDesc(self): return """
-                                You are silenty thinking of a plan to make America Great again because... you're smart.
+                                You are silently thinking of a plan to make America Great again because... you're smart.
                                 """
     #------------
     # TasteDesc()
@@ -1665,12 +1437,12 @@ Computer.SetDesc("Take","""
                     """)
 
 Computer.SetDesc("Taste","""
-                     It would be tastless to try and taste it.
+                     It would be tasteless to try and taste it.
                      """)
 
 Computer.SetDesc("Read","""
                     In tiny, almost illegible, scratched letters the words read:
-                    'Aoole MacBook'
+                    'Apple MacBook'
                     """)
 
 Computer.SetDesc("L","""
