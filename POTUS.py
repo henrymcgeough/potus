@@ -142,7 +142,7 @@ from Universe import *
 #            Natural Language NLTK 3.0
 #********************************************************************
 
-import nltk
+#import nltk
 
 #********************************************************************
 #                          G A M E   D A T A
@@ -182,10 +182,14 @@ Game.Version   = "1.0.1 Alpha"
 
 
 Game.IntroText = """
-    "After a big party last night following the Presidential Inauguration Ceremony, this is your first day of being President Of The United States (POTUS). Everyone thinks you will be the worst President ever, but you plan on proving them wrong."  ~p
-    "In fact you have managed to finish a secret plan to defeat ISIS, after looking them up on Google... and it's in your desk draw."  ~p
-    "You need to go and meet with The Joint Chiefs who are waiting for you in the Situation Room and start making America Great Again."  ~p
-"""
+                 After a big party last night following the Presidential Inauguration Ceremony, 
+                 this is your first day of being President Of The United States (POTUS). Everyone 
+                 thinks you will be the worst President ever, but you plan on proving them wrong.
+                 In fact you have managed to finish a secret plan to defeat ISIS, after looking 
+                 them up on Google... and it's in your desk draw. You need to go and meet with 
+                 The Joint Chiefs who are waiting for you in the Situation Room and start making 
+                 America Great Again. ~p
+                 """
 
 
 #********************************************************************************
@@ -517,9 +521,7 @@ OvalOffice.SetDesc("L","""
                        fireplace at the north end. It has four doors: the east door opens to the Rose Garden;
                        the west door leads to a private study and dining room; the northwest door opens onto
                        the main corridor of the West Wing; and the northeast door opens to the office of the
-                       President's Secretary.
-                       It is the official office of the President of the United States. It is located in the
-                       West Wing of the White House Complex.
+                       President's Secretary. It is the official office of the President of the United States.
                        """)
 
 OvalOffice.SetDesc("Odor","There's a faint whiff of pine needles.")
@@ -643,7 +645,7 @@ RoseGarden.SetDesc("L","""
                        is approximately 125 feet long and 60 feet wide. It balances the Jacqueline
                        Kennedy Garden on the east side of the White House Complex.
 
-                       The West colonade is north, the South Lawn is south and the Kennedy Garden
+                       The West colonnade is north, the South Lawn is south and the Kennedy Garden
                        is east.
                        """)
 
@@ -766,14 +768,14 @@ MarineOne.SetDesc("L","""
 MarineOne.SetDesc("Sound","You can hear the wind roaring above you.")
 
 #===========================================================================
-#                            West Colonade (Room #16)
+#                            West Colonnade (Room #16)
 #===========================================================================
 
 # The White House Rose Garden is just outside of the Oval Office, an important place.
 # The President passes it on his way from the residence to start his day.
 
 WestColonade = ClassOutside()
-WestColonade.NamePhrase = "West Colonade"
+WestColonade.NamePhrase = "West Colonnade"
 
 WestColonade.SetDesc("L","""
                        Also known as the '45 second commute,' the West Colonnade was built for
@@ -1145,8 +1147,7 @@ PressBriefing.SetDesc("Sound","""
 #                                Press Corps Offices (Room #6)
 #===========================================================================
 
-# Like many of the non-forest rooms this one has most of its properties
-# defined directly.
+# Press use this room as their offices at the WhiteH House.
 
 PressCorps = ClassOffice()
 
@@ -1167,6 +1168,53 @@ PressCorps.SetDesc("Odor","""
 PressCorps.SetDesc("Sound","You can hear the sound of crickets chirping.")
 
 
+
+#===========================================================================
+#                                White House Entrance
+#===========================================================================
+
+# entrance to White House has limousine waiting for President
+
+
+WhiteHouseEntrance = ClassOffice()
+
+WhiteHouseEntrance.NamePhrase = "White House Entrance"
+
+WhiteHouseEntrance.SetDesc("L","""
+                       The White House West Wing Entrance, there is a parkerd Presidential Limousine
+                       adorned with small American Flags. There are also several Black SUV\'s with
+                       darkened windows used by the secret service to guard the President.
+                       """)
+
+WhiteHouseEntrance.SetDesc("Odor","""
+                          You can smell damp gunpowder.  The air is cool like fall and a
+                          crispness tickles your nose.
+                          """)
+
+WhiteHouseEntrance.SetDesc("Sound","You can hear the sound of assassins cocking high powered rifles.")
+
+#===========================================================================
+#                            Presidential State Car (United States)
+#===========================================================================
+
+# The United States presidential state car (nicknamed "The Beast", "Cadillac One", "First Car";
+# code named "Stagecoach") is the official state car of the President of the United States.
+
+Limousine = ClassOffice()
+
+Limousine.NamePhrase = "Presidential State Car"
+
+Limousine.SetDesc("L","""
+                          The United States presidential state car (nicknamed "The Beast",
+                          "Cadillac One", "First Car"; code named "Stagecoach") is the official
+                          state car of the President of the United States. The
+                          limousine is ready to leave. The White House Entrance is south.
+                          """)
+
+Limousine.SetDesc("Sound","You can hear the sound of comfort.")
+
+
+
 #*********************************************************************
 #                              T H I N G S
 #*********************************************************************
@@ -1178,41 +1226,6 @@ PressCorps.SetDesc("Sound","You can hear the sound of crickets chirping.")
 # A tree, an acorn, a person, a sword, a ring--these are all things.
 
 
-
-#====================================================================
-#                                   Druid's Robe
-#====================================================================
-
-# The druid's robe is scenery, it doesn't appear in room descriptions.
-# The other interesting thing about it is the Location property, the
-# robe returns the Druid's location (which, since the player will
-# never get their hands on it is natural enough).
-
-class ClassRobe(ClassScenery):
-    def Where(self): return Druid.Where()
-
-Robe = ClassRobe("robe","brown,man's,his,druid's")
-Robe.StartingLocation = OvalOffice
-
-Robe.SetDesc("Feel","""
-                    He doesn't look as though he'd appreciate your
-                    pawing his robe.
-                    """)
-
-Robe.SetDesc("L","""
-                 It looks to be brown homespun, something a monk would
-                 wear. Not very valuable at all. It has long flowing
-                 sleeves and a cowl. In some ways (except for the
-                 color, material, and cowl) it reminds you of the
-                 robe the wizard was wearing when he caught you.
-                 """)
-
-Robe.SetDesc("Odor","Any odor the robe might have is overwhelmed by his own pungent odor.")
-
-Robe.SetDesc("Taste","""
-                     Do you really feel like licking odorous homespun?
-                     I sure don\'t!
-                     """)
 
 
 #=====================================================================
@@ -1265,7 +1278,7 @@ class ClassDruid(ClassPOTUSActor):
         # Move the druid into None and give the player the mandala
 
         self.MoveInto(None)
-        Global.Player.Enter(Mandala)
+        Global.Player.Enter(phone)
 
         #--------------
         # Give the Clue
@@ -1274,13 +1287,13 @@ class ClassDruid(ClassPOTUSActor):
         return """
                The man bows to you, and says: "I am Amak, keeper of
                the ancient places.  Welcome, bold adventurer.  Behold
-               the mandala, the sacred circle of the druids.  Take it,
+               the Apple iPhone, the sacred phone of the druids.  Take it,
                and let it be your shield and your sword in the places
                of the dark.  To summon its aid, cry aloud the word
-               'Nirna', but do so only in dire need, for the mandala
+               'Siri', but do so only in dire need, for the iPhone 7
                is a sacred object, and not for profane use."  He hands
-               you a small crystal disk, divided into four quarters.
-               Bowing the man turns and walks into the forest.
+               you a mobile phone, made from dark metal. Bowing the man 
+               turns and disappears into a dark portal.
                """
 
     
@@ -1289,35 +1302,12 @@ class ClassDruid(ClassPOTUSActor):
     #--------
 
     def LDesc(self):
-        Text = """
+        return """
                There's not much to see, just an average size man in a
                brown cowled robe. You can't see his face, hands or
                feet.
                """
-        
-        if CarefullyAdverb.Applies() or CloselyAdverb.Applies():
-            Text = Text + """
-                           Your trained eye notes that his body stance seems wrong
-                          for the humble robe he's wearing, something tells you
-                          he'd be more at home in a merchant house than this odd
-                          forest.
-                          """
-            if Rock in P.CA().Contents:
-                self.Alerted = TRUE
-                Text = Text + """
-                               The man seems to be peering toward a bulge in your
-                               pocket--the rock you found perhaps? 'Don't win this
-                               damnable game.' he whispers urgently. 'We're all
-                               trapped here. Help us!' Looking around the man
-                               bears an uncanny resemblence to a thief expecting
-                               the city watch to show up any second. 'I've said
-                               too much. But for all our sakes ~b don't win ~l
-                               the game!' With that cryptic utterance 
-                               he resumes his act of calm indifference.
-                               """
 
-        return Text
-                       
         
     #-----------
     # OdorDesc()
@@ -1366,186 +1356,500 @@ class ClassDruid(ClassPOTUSActor):
     def TheDesc(self): return "him"
 
 
-Druid = ClassDruid("man,druid,monk","robed,brown,cowled,holy")
+Druid = ClassDruid("man,druid,monk,iPhone salesman","robed,brown,cowled,holy")
 
 Druid.IsHim = TRUE
 Druid.StartingLocation = OvalOffice
 
 
-#====================================================================
-#                                   Dryad's Dress
-#====================================================================
+#=====================================================================
+#                                   Chief
+#=====================================================================
 
-# The dryad's dress is scenery, it doesn't appear in room
-# descriptions. The other interesting thing about it is the Where()
-# method, the dress returns the Dryad's location (which, since the
-# player will never get their hands on it is natural enough).
+# The Chief of Staff is another cameo actor, and a non-combatant.
+# If spoken to he will give the player the secret plan. He
+# then waits for you with joint chiefs in the Situation Room.
 
-class ClassDress(ClassScenery):
-    def Where(self): return Dryad.Where()
+class ClassChief(ClassPOTUSActor):
+    """Chief of Staff"""
 
-Dress = ClassDress("dress","woman's,dryad's")
-Dress.AdjectivePhrase = ""
-Dress.StartingLocation = Cabinet
+    #------
+    # ADesc
+    #------
 
+    def ADesc(self): return "him"
 
-Dress.SetDesc("Feel","""
-                     She's 30 feet away, and doesn't look as though
-                     she'd appreciate your pawing her dress.
-                     """)
+    #-----------
+    # FeelDesc()
+    #-----------
 
-Dress.SetDesc("L","""
-                 From this distance it's hard to tell, but you're
-                 almost certain her dress is made of REAL maple
-                 leaves, sown together in some way. Why the dead
-                 leaves (which are red and gold) don't crumble into
-                 dust is a mystery. Why she's wearing such a bizarre
-                 garment is an even bigger mystery...
-                 """)
+    def FeelDesc(self):
+        return """
+               He doesn't look as though he'd appreciate your pawing
+               him.
+               """
 
-Dress.SetDesc("Odor","Any odor the dress might have is overwhelmed by her perfume.")
+    #-----------
+    # HereDesc()
+    #-----------
 
-Dress.SetDesc("Taste","""
-                      She's 30 feet away! Besides, do you really feel
-                      like licking dead leaves? I sure don't!
-                      """)
+    def HereDesc(self):
+        return """
+               The Chief of Staff, worried looking man in a dark suit.
+               """
 
+    #------------
+    # HelloDesc()
+    #------------
 
-#===========================================================================
-#                                   Dryad
-#===========================================================================
-
-
-# The dryad looks like a red-haired woman. Observant players may note
-# that her hair has golden highlights, or that her dress has strange
-# leaf-like patterns on it, but that's all. If they try to take or
-# attack her she disappears without warning them about the wolf or
-# the druid.
-#
-# That's her only real purpose, other than to delight the player and
-# provide a minor mystery for atmosphere.
-
-
-class ClassDryad(ClassPOTUSActor):
-    def SetMyProperties(self):
-        self.Value = 2
-
-    def ADesc(self): return "her"
-    def FeelDesc(self): return "She's 30 feet away, and doesn't look as though she'd appreciate your pawing her."
-    def HereDesc(self): return "A small red haired woman is watching you from behind a tree."
-
-    
     def HelloDesc(self):
 
-        #------------------
-        # Make Dryad Vanish
-        #------------------
+        # Move the Chief Of Staff into Situation Room and give the player the Secret Plan
 
-        # Move the dryad into None and give the player two points for
-        # gaining the clue.
-
-        self.MoveInto(None)
-        IncrementScore(self.Value)
+        self.MoveInto(Situation)
+        Global.Player.Enter(plan)
 
         #--------------
         # Give the Clue
         #--------------
 
-        
-        # This clue is actually a cornecopia of clues. In order: the
-        # silver branch (and the birch grove) are protection from the
-        # wolf hiding in the forest, Brenin and the Druid, the crystal
-        # mandala. An obtuse reference to the giant spider and how to
-        # kill it (bright light focused through the mandala).
-
-        # The second clues: Don't rely on the text as printed, listen,
-        # sniff, taste, and feel for clues to survive. And finally
-        # the whole speech should convince the player that he's just
-        # had a supernatural encounter...
-
-        Text = """
-               The woman steps from behind the tree and raises one
-               hand in greeting. Before you can say anything more,
-               she begins to speak, her voice like a golden bell:
-               'Beware, human! Silver leaves guard ye well, for danger
-               lurks, concealed in pleasant fragrances. Seek ye the
-               ancient tree and its guardian, then win from him the
-               sacred circle. Light shall be thy guide and thy guard
-               for the dark has fangs. Heed me if thou wouldst live. ~p
-               
-               She studies you for a moment and adds 'Seek me anon,
-               mortal. Be chary of what thou dost believe in this
-               place. Thine eyes may not be thy surest sentinal, spurn
-               not the lessons of the owl, the wolf, and the wise
-               serpent, for what humankind has forgotten, they have
-               remembered.' ~p
-               """
-               
-        if Rock in Global.Player.Contents:
-            self.Alerted = TRUE
-            Text = Text + """
-                          Her voice suddenly changes, still lovely but definitely
-                          human. 'Don't be stone blind, thief. And listen for 
-                          me.' 
-                          """
-               
-        Text = Text + """
-                      Without warning the woman then turns and fades into the
-                      trees, almost as though she had never been. You could 
-                      almost swear she faded INTO the tree she'd been leaning
-                      against.
-                      """
-
-        return Text
-                       
-    
-    def LDesc(Self):
         return """
-               The woman is quite beautiful, but there's something eldritch about her that sends
-               chills up and down your spine. And yet it's nothing obvious. Her skin is nut brown,
-               her hair is flaming red with golden highlights. Her eyes are brilliant green,
-               visible in spite of the distance between the two of you. If you saw her in a city
-               you'd call her an exotic beauty. But here and now there's something more... Her
-               dress is somewhat unusual, a pattern of leaves in red and gold, but again nothing
-               that would explain your instinctive belief that there's more than meets the eye
-               here.
+               The Chief of Staff hands you a manila folder with Top Secert
+               written on it. 'Mr. President I've read your plan and written
+               some comments on it, the Joint Chiefs are waiting in the
+               Situation Room to discuss what we should do about it. I will
+               meet you there as I need to brief my staff on the possible
+               consequences' the Chief leaves the Oval Office looking even
+               more worried.
                """
-    
+
+    #--------
+    # LDesc()
+    #--------
+
+    def LDesc(self):
+        return """
+               There's not much to see, just an average size man in a
+               dark suit. He looks very worried about something.
+               """
+
+    #-----------
+    # OdorDesc()
+    #-----------
+
     def OdorDesc(self):
         return """
-               Although she's 30 feet away you can detect the faint scent of her perfume, a scent
-               that evokes visions of wild things slipping through the trees. You can feel the
-               hairs on the back of your neck standing on end. No perfume you ever heard of can
-               do that!
+               You can smell fear and loathing coming in waves.
                """
 
-    
-    def SoundDesc(self):
-        return """
-               She stopped singing when you entered the stand of maples,
-               and is now simply standing and watching you quietly.
-               """
+    #------------
+    # SoundDesc()
+    #------------
 
-    
+    def SoundDesc(self): return "He's standing quietly."
+
+    #-------
+    # Take()
+    #-------
+
     def Take(self,Multiple=FALSE):
-        """Take self"""
         Complain(self.TakeDesc())
-        self.MoveInto(None)
+
+    #-----------
+    # TakeDesc()
+    #-----------
+
+    def TakeDesc(self):
+        return """
+               The man strikes you suddenly, with enough force to
+               knock you back. You aren't injured, but the warning is
+               obvious.
+               """
+
+    #------------
+    # TasteDesc()
+    #------------
+
+    def TasteDesc(self): return "I don't think so!!!!!"
+
+    #----------
+    # TheDesc()
+    #----------
+
+    def TheDesc(self): return "him"
 
 
-    def TakeDesc(self): return """
-                               The woman gasps, startled. Then she
-                               dodges away, into the trees and out of
-                               sight. For a moment you could swear she
-                               dodged INTO the tree!
-                               """
-    def TasteDesc(self): return "She's 30 feet away!"
+Chief = ClassChief("chief, chief of staff","dark,suit,worried")
+
+Chief.IsHim = TRUE
+Chief.StartingLocation = OvalOffice
+
+#=====================================================================
+#                                   Secretary
+#=====================================================================
+
+# The Chief of Staff is another cameo actor, and a non-combatant.
+# If spoken to he will give the player the secret plan. He
+# then waits for you with joint chiefs in the Situation Room.
+
+class ClassSecretary(ClassPOTUSActor):
+    """Secretary"""
+
+    #------
+    # ADesc
+    #------
+
+    def ADesc(self): return "her"
+
+    #-----------
+    # FeelDesc()
+    #-----------
+
+    def FeelDesc(self):
+        return """
+               She doesn't look as though she'd appreciate your pawing
+               her.
+               """
+
+    #-----------
+    # HereDesc()
+    #-----------
+
+    def HereDesc(self):
+        return """
+               The President\'s Secretary is very busy dealing with the Presidents appointments and schedule.
+               """
+
+    #------------
+    # HelloDesc()
+    #------------
+
+    def HelloDesc(self):
+
+        # Move the Chief Of Staff into Situation Room and give the player the Secret Plan
+
+        #self.MoveInto(Situation)
+        Global.Player.Enter(mail)
+
+        #--------------
+        # Give the Clue
+        #--------------
+
+        return """
+               The President\'s Secretary hands you a stack of junk mail
+               'Mr. President these are your most pressing messages.
+               The chef wanted to know what you wanted for lunch.' the
+               Secretary carries on typing at a Computer terminal
+               on her desk. Occassionaly answering the phone that seems
+               to be constantly flashing.
+               """
+
+    #--------
+    # LDesc()
+    #--------
+
+    def LDesc(self):
+        return """
+               There's not much to see, just an average size woman in a
+               dark business suit with a pecil skirt. She looks very
+               worried about something but is incedibly busy.
+               """
+
+    #-----------
+    # OdorDesc()
+    #-----------
+
+    def OdorDesc(self):
+        return """
+               You can smell hope and optimism coming in waves.
+               """
+
+    #------------
+    # SoundDesc()
+    #------------
+
+    def SoundDesc(self): return "She's sitting at her desk quietly."
+
+    #-------
+    # Take()
+    #-------
+
+    def Take(self,Multiple=FALSE):
+        Complain(self.TakeDesc())
+
+    #-----------
+    # TakeDesc()
+    #-----------
+
+    def TakeDesc(self):
+        return """
+               The woman strikes you suddenly, with enough force to
+               knock you back. You aren't injured, but the warning is
+               obvious.
+               """
+
+    #------------
+    # TasteDesc()
+    #------------
+
+    def TasteDesc(self): return "I don't think so!!!!!"
+
+    #----------
+    # TheDesc()
+    #----------
+
     def TheDesc(self): return "her"
 
-Dryad = ClassDryad("woman,dryad,hers","red,haired,small")
 
-Dryad.IsHer = TRUE
-Dryad.StartingLocation = OvalOffice
+PresidentSecretary = ClassSecretary("secretary, Presidents Secretary","dark dress,busy")
+
+PresidentSecretary.IsHim = TRUE
+PresidentSecretary.StartingLocation = Secretary
+
+#=====================================================================
+#                          Secretary Of State
+#=====================================================================
+
+# The Chief of Staff is another cameo actor, and a non-combatant.
+# If spoken to he will give the player the secret plan. He
+# then waits for you with joint chiefs in the Situation Room.
+
+class ClassSecretaryState(ClassPOTUSActor):
+    """Secretary Of State"""
+
+    #------
+    # ADesc
+    #------
+
+    def ADesc(self): return "her"
+
+    #-----------
+    # FeelDesc()
+    #-----------
+
+    def FeelDesc(self):
+        return """
+               She doesn't look as though she'd appreciate your pawing
+               her.
+               """
+
+    #-----------
+    # HereDesc()
+    #-----------
+
+    def HereDesc(self):
+        return """
+               The Secretary Of State looks secretive like she knows something.
+               """
+
+    #------------
+    # HelloDesc()
+    #------------
+
+    def HelloDesc(self):
+
+        # Move the Chief Of Staff into Situation Room and give the player the Secret Plan
+
+        #self.MoveInto(Situation)
+        Global.Player.Enter(report)
+
+        #--------------
+        # Give the Clue
+        #--------------
+
+        return """
+               The Secretary Of State hands you a manila folder with images
+               from a satellite drone strike and background information
+               on ISIS 'Mr. President these are images on the latest drone
+               strike against ISIS and current latest strategic information.'
+               The Secretary Of State then sits down at the table waiting for
+               you to read the information.
+               """
+
+    #--------
+    # LDesc()
+    #--------
+
+    def LDesc(self):
+        return """
+               There's not much to see, just an average size woman in a
+               dark business suit with a pencil skirt. She looks very
+               worried about something but is incedibly busy.
+               """
+
+    #-----------
+    # OdorDesc()
+    #-----------
+
+    def OdorDesc(self):
+        return """
+               You can smell hope and optimism coming in waves.
+               """
+
+    #------------
+    # SoundDesc()
+    #------------
+
+    def SoundDesc(self): return "She's hardly noticable, quite as a mouse."
+
+    #-------
+    # Take()
+    #-------
+
+    def Take(self,Multiple=FALSE):
+        Complain(self.TakeDesc())
+
+    #-----------
+    # TakeDesc()
+    #-----------
+
+    def TakeDesc(self):
+        return """
+               The woman strikes you suddenly, with enough force to
+               knock you back. You aren't injured, but the warning is
+               obvious.
+               """
+
+    #------------
+    # TasteDesc()
+    #------------
+
+    def TasteDesc(self): return "I don't think so!!!!!"
+
+    #----------
+    # TheDesc()
+    #----------
+
+    def TheDesc(self): return "her"
+
+
+SecretaryState = ClassSecretaryState("state, 'Secretary of State'","dark leather dress,sexy")
+
+SecretaryState.IsHim = TRUE
+SecretaryState.StartingLocation = Situation
+
+#=====================================================================
+#                          Joint Chiefs
+#=====================================================================
+
+# The Chief of Staff is another cameo actor, and a non-combatant.
+# If spoken to he will give the player the secret plan. He
+# then waits for you with joint chiefs in the Situation Room.
+
+class ClassJointChiefs(ClassPOTUSActor):
+    """Joiunt Chiefs"""
+
+    #------
+    # ADesc
+    #------
+
+    def ADesc(self): return "them"
+
+    #-----------
+    # FeelDesc()
+    #-----------
+
+    def FeelDesc(self):
+        return """
+               They don't look as though she'd appreciate your pawing
+               her.
+               """
+
+    #-----------
+    # HereDesc()
+    #-----------
+
+    def HereDesc(self):
+        return """
+               The Joint Chiefs look a very serious secretive bunch of Generals and
+               Admirals who need a strong Commander-in-Chief.
+               """
+
+    #------------
+    # HelloDesc()
+    #------------
+
+    def HelloDesc(self):
+
+        # Move the Chief Of Staff into Situation Room and give the player the Secret Plan
+
+        #self.MoveInto(Situation)
+        Global.Player.Enter(report)
+
+        #--------------
+        # Give the Clue
+        #--------------
+
+        return """
+               The Chairman of the Joint Chiefs hands you a manila folder
+               with images from a satellite drone strike and background
+               information on ISIS 'Mr. President these are images on the
+               latest drone strike against ISIS and current latest strategic
+               information.' The Chairman then sits down at the table waiting
+               for you to read the information.
+               """
+
+    #--------
+    # LDesc()
+    #--------
+
+    def LDesc(self):
+        return """
+               There's not much to see, just an average size bunch of
+               Generals and Admirals, wearing Military uniforms. They look
+               worried about nothing and very scary.
+               """
+
+    #-----------
+    # OdorDesc()
+    #-----------
+
+    def OdorDesc(self):
+        return """
+               You can smell victory, hope and optimism coming in waves.
+               """
+
+    #------------
+    # SoundDesc()
+    #------------
+
+    def SoundDesc(self): return "It's like you hear faint marching music."
+
+    #-------
+    # Take()
+    #-------
+
+    def Take(self,Multiple=FALSE):
+        Complain(self.TakeDesc())
+
+    #-----------
+    # TakeDesc()
+    #-----------
+
+    def TakeDesc(self):
+        return """
+               A General strikes you suddenly, with enough force to
+               knock you back. You aren't injured, but the warning is
+               obvious.
+               """
+
+    #------------
+    # TasteDesc()
+    #------------
+
+    def TasteDesc(self): return "I don't think so!!!!!"
+
+    #----------
+    # TheDesc()
+    #----------
+
+    def TheDesc(self): return "them"
+
+
+JointChiefs = ClassJointChiefs("chiefs, joint, 'Joint Chiefs'","military, uniforms, scary")
+
+JointChiefs.IsHim = TRUE
+JointChiefs.StartingLocation = Situation
 
 
 #===========================================================================
@@ -1578,7 +1882,7 @@ class ClassPOTUSPlayer(ClassPlayer):
     #------------
 
     def SoundDesc(self): return """
-                                You are silenty thinking of a plan to make America Great again because... you're smart.
+                                You are silently thinking of a plan to make America Great again because... you're smart.
                                 """
     #------------
     # TasteDesc()
@@ -1593,7 +1897,7 @@ class ClassPOTUSPlayer(ClassPlayer):
 # Redefine Me
 #------------
 
-POTUSMe = ClassPOTUSPlayer("me,myself, Mr President")
+POTUSMe = ClassPOTUSPlayer("me,myself, 'Mr. President'")
 POTUSMe.Alerted = FALSE
 
 Global.Player = POTUSMe
@@ -1618,16 +1922,95 @@ phone.SetDesc("Feel","""
                        """)
 
 phone.SetDesc("L","""
-                    The mandala is a flat circle of cut crystal about 3 inches
-                    in diameter. It's thicker in the middle than at the edges,
-                    and is divided into 4 quarters by a 4 pointed star somehow
-                    embedded into the crystal. It's very beautiful and
+                    The Apple iPhone 7 is a state of the art smartphone with a
+                    digital assistant called Siri. It's very beautiful and
                     obviously valuable as well.
                     """)
 
 
 phone.SetDesc("Odor","The phone has no odor.")
 phone.SetDesc("Taste","The phone doesn't have a taste.")
+
+#----------------------------------------------------------------------
+#                               Secret Plan
+#----------------------------------------------------------------------
+
+plan = ClassItem("secret, plan")
+
+plan.Bulk = 1
+plan.StartingLocation = None
+plan.Value = 60
+plan.Weight = 1
+
+plan.SetDesc("Feel","""
+                       The secret plan feels flimsy.
+                       """)
+
+plan.SetDesc("L","""
+                    The secret plan is in a manila folder with 'Top
+                    Secret' stamped in red. The plan basically talks
+                    about Nuking ISIS with a cruise misile from a US
+                    Navy ship in the Mediterranean. It goes on to say
+                    there would be little fallout and most of this
+                    would be political.
+                    """)
+
+
+plan.SetDesc("Odor","The plan really stinks.")
+plan.SetDesc("Taste","The plan has a very bad taste.")
+
+#----------------------------------------------------------------------
+#                               Secret Plan
+#----------------------------------------------------------------------
+
+report = ClassItem("report")
+
+report.Bulk = 1
+report.StartingLocation = None
+report.Value = 60
+report.Weight = 1
+
+report.SetDesc("Feel","""
+                       The report feels conclusive.
+                       """)
+
+report.SetDesc("L","""
+                    The report is in a manila folder with 'Above Top
+                    Secret' stamped in green. The report basically talks
+                    about ISIS, including their known hideouts and current
+                    CIA operations.
+                    """)
+
+
+report.SetDesc("Odor","The report smells like victory or naplam.")
+report.SetDesc("Taste","The plan has a taste like agent orange.")
+
+#----------------------------------------------------------------------
+#                               Junk Mail
+#----------------------------------------------------------------------
+
+mail = ClassItem("junk mail, junk, mail")
+
+mail.Bulk = 1
+mail.StartingLocation = None
+mail.Value = 60
+mail.Weight = 1
+
+mail.SetDesc("Feel","""
+                       The junk mail feels like a waste of time.
+                       """)
+
+mail.SetDesc("L","""
+                    The junk mail is in a folder with 'Not
+                    Secret' stamped in blue on it. The mail contains
+                    unpaid bills, business corrospndance, a post card
+                    from Hilary Clinton and a letter from the US Tax office
+                    asking about an overdue tax return.
+                    """)
+
+
+mail.SetDesc("Odor","The plan smells fishy.")
+mail.SetDesc("Taste","The junk mail has a very bland taste.")
 
 
 #=====================================================================
@@ -1665,12 +2048,12 @@ Computer.SetDesc("Take","""
                     """)
 
 Computer.SetDesc("Taste","""
-                     It would be tastless to try and taste it.
+                     It would be tasteless to try and taste it.
                      """)
 
 Computer.SetDesc("Read","""
                     In tiny, almost illegible, scratched letters the words read:
-                    'Aoole MacBook'
+                    'Apple MacBook'
                     """)
 
 Computer.SetDesc("L","""
@@ -1869,9 +2252,15 @@ NavyMess.Map =    {North:     GroundStaircase,
                    West:      Situation,
                    Northwest: WestWingEntrance}
 
-WestWingEntrance.Map = {East: GroundStaircase,
-                   Southeast: NavyMess,
-                   South:     Situation}
+WestWingEntrance.Map = {North:  WhiteHouseEntrance,
+                        East:   GroundStaircase,
+                   Southeast:   NavyMess,
+                       South:   Situation}
+
+WhiteHouseEntrance.Map = {North: Limousine,
+                          South: WestWingEntrance}
+
+Limousine.Map = {South:     WhiteHouseEntrance}
 
 Situation.Map =   {North:     WestWingEntrance,
                    Northeast: GroundStaircase,

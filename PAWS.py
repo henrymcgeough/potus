@@ -2889,7 +2889,7 @@ def DisambiguateListOfLists(ListOfLists,TestMethod,ErrorMethod,Actor=None):
         ReturnList.append(List)
 
 
-        #-------------------
+    #-------------------
     # Remove empty lists
     #-------------------
 
@@ -2904,7 +2904,7 @@ def DisambiguateListOfLists(ListOfLists,TestMethod,ErrorMethod,Actor=None):
     # mystery, but rest assured it works.
 
     ReturnList = filter(None,ReturnList)
-        #---------------------------
+    #---------------------------
     # Return New "List Of Lists"
     #---------------------------
 
