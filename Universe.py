@@ -6469,7 +6469,7 @@ CloseVerb = ClassCloseVerb("close,shut")
 
 class ClassConfigureTerminalVerb(ClassSystemVerb):
     """Configure Terminal verb"""
-        #-----------------
+    #-----------------
     # Quit Verb Action
     #-----------------
 
@@ -6802,6 +6802,9 @@ class ClassHelloVerb(ClassBasicVerb):
 HelloVerb = ClassHelloVerb("hello,hi")
 HelloThereVerb = ClassHelloVerb("hello,hi","there")
 
+AskAboutVerb = ClassHelloVerb("ask","about")
+SpeakVerb = ClassHelloVerb("speak","to")
+TalkVerb = ClassHelloVerb("talk","to")
 
 
 #=====================================================================
@@ -7341,13 +7344,13 @@ ReadVerb = ClassReadVerb("read")
 
 
 #===========================================================================
-#                               Save Verb
+#                               Restore Verb
 #===========================================================================
 
-# This verb saves the game and returns to the operating system.
+# This verb restores the game and returns to the operating system.
 
 class ClassRestoreVerb(ClassSystemVerb):
-    """Save verb"""
+    """Restore verb"""
     
     #--------------------
     # Restore Verb Action

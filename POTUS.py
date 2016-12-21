@@ -143,6 +143,8 @@ from Universe import *
 #********************************************************************
 
 #import nltk
+import aiml
+import os
 
 #********************************************************************
 #                          G A M E   D A T A
@@ -1935,7 +1937,7 @@ phone.SetDesc("Taste","The phone doesn't have a taste.")
 #                               Secret Plan
 #----------------------------------------------------------------------
 
-plan = ClassItem("secret, plan")
+plan = ClassItem("plan, secret")
 
 plan.Bulk = 1
 plan.StartingLocation = None
@@ -1958,6 +1960,58 @@ plan.SetDesc("L","""
 
 plan.SetDesc("Odor","The plan really stinks.")
 plan.SetDesc("Taste","The plan has a very bad taste.")
+
+#----------------------------------------------------------------------
+#                               Nuclear Football
+#----------------------------------------------------------------------
+
+football = ClassItem("football, nuclear football, briefcase")
+
+football.Bulk = 1
+football.StartingLocation = Secretary
+football.Value = 60
+football.Weight = 1
+
+football.SetDesc("Feel","""
+                    The nuclear football feels solid as a rock.
+                       """)
+
+football.SetDesc("L","""
+                    The nuclear football is a black briefcase with an
+                    lcd activation panel that is activated by the presidents
+                    handprint. Once opened the president launch codes are
+                    needed to fire nuclear weapons.
+                    """)
+
+
+football.SetDesc("Odor","The nuclear football smells of new leather.")
+football.SetDesc("Taste","The football has a very bad taste.")
+
+#----------------------------------------------------------------------
+#                               Nuclear Codes
+#----------------------------------------------------------------------
+
+codes = ClassItem("Codes, nuclear codes, black wallet")
+
+codes.Bulk = 1
+codes.StartingLocation = OvalOffice
+codes.Value = 60
+codes.Weight = 1
+
+codes.SetDesc("Feel","""
+                    The nuclear codes feel extremly dangerous.
+                       """)
+
+codes.SetDesc("L","""
+                    The nuclear codes is a small black wallet with the
+                    president launch codes needed to fire nuclear weapons.
+                    The main launch all code seems to be 1234, I think this
+                    may be a test code and not actually work.
+                    """)
+
+
+codes.SetDesc("Odor","The nuclear code wallet smells of new leather.")
+codes.SetDesc("Taste","The football has an extremly bad taste.")
 
 #----------------------------------------------------------------------
 #                               Secret Plan
@@ -2034,7 +2088,7 @@ mail.SetDesc("Taste","The junk mail has a very bland taste.")
 
 
 Computer = ClassItem("computer,latop,mac","small,silver,metal,illegible,tiny,scratched")
-Computer.StartingLocation = OvalOffice
+Computer.StartingLocation = Study
 Computer.Bulk = 5
 Computer.Weight = 10
 

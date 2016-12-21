@@ -4819,7 +4819,7 @@ class ClassParser(ClassFundamental):
         # Find Preposition
         #-----------------
 
-                # If we get this far we found a verb, now we have to find its
+        # If we get this far we found a verb, now we have to find its
         # prepositions (if any). We start at the verb's location and
         # move to the end of the active command list. If we don't find
         #
