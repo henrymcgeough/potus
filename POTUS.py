@@ -1329,14 +1329,14 @@ HouseKeeper.SetDesc("Odor","""
 HouseKeeper.SetDesc("Sound","You can hear the sound of dusting.")
 
 #===========================================================================
-#                                White House Doctor (Room #6)
+#                                White House Medical Unit (Room #6)
 #===========================================================================
 
 # White House Doctor.
 
 MedicalUnit = ClassOffice()
 
-MedicalUnit.NamePhrase = "House Doctor"
+MedicalUnit.NamePhrase = "White House Medical Unit"
 
 MedicalUnit.SetDesc("L","""
                        The White House Medical Unit (WHMU) is a unit of the White House Military
@@ -1460,14 +1460,14 @@ BasementHall.SetDesc("Odor","""
 BasementHall.SetDesc("Sound","You can hear mice running away from the White House Cat.")
 
 #===========================================================================
-#                                Curator (Room #6)
+#                                Secret Service Office (Room #6)
 #===========================================================================
 
 # White House Secret Service.
 
 SecretServiceOffice = ClassOffice()
 
-SecretServiceOffice.NamePhrase = "Curator"
+SecretServiceOffice.NamePhrase = "Secret Service Office"
 
 SecretServiceOffice.SetDesc("L","""
                        The Secret Service's initial responsibility was to investigate counterfeiting
@@ -1638,6 +1638,47 @@ NorthPortico.SetDesc("Odor","""
                           """)
 
 NorthPortico.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                            North Lawn (Room #16)
+#===========================================================================
+
+# The North Lawn at the White House.
+
+
+NorthLawn = ClassOutside()
+NorthLawn.NamePhrase = "North Lawn"
+
+NorthLawn.SetDesc("L","""
+                       The North Lawn at the White House in Washington, DC, is bordered on the north by Pennsylvania
+                       Avenue with a wide view of the mansion, and is screened by dense plantings on the east from East
+                       Executive Drive and the Treasury Building, and on the west from West Executive Drive and the Old
+                       Executive Office Building. Because it is bordered by Pennsylvania Avenue, the White House's
+                       official street address, the North Lawn is sometimes described as the front lawn.
+                       """)
+
+NorthLawn.SetDesc("Odor","""
+                          You can smell pine in the air, like rare
+                          perfume.
+                          """)
+
+NorthLawn.SetDesc("Sound","""
+                           You hear birdsong of surpassing loveliness. Tears
+                           spring to your eyes, you feel like bursting into
+                           song yourself.
+                           """)
+
+NorthLawn.SetDesc("Sky","""
+                         This sky is cloudy and overcast, it looks like it might rain
+                         or there may be a storm coming.
+                         """)
+
+NorthLawn.SetDesc("Ground","""
+                         You are on a stone path but you can see lawns and flowers
+                         all around.
+                         """)
+
 
 
 #===========================================================================
@@ -1871,6 +1912,34 @@ EntranceHall.SetDesc("Sound","You can hear mice running away from the White Hous
 
 
 #===========================================================================
+#                    White House East Room (Room #6)
+#===========================================================================
+
+# White House East Room, there are 2 East Room's so I've called this the Big East Room.
+
+BigEastRoom = ClassOffice()
+
+BigEastRoom.NamePhrase = "East Room"
+
+BigEastRoom.SetDesc("L","""
+                       The East Room is an events and reception room in the White House, the home of the President of
+                       the United States. The largest room in the Executive Mansion, it is used for dances, receptions,
+                       press conferences, ceremonies, concerts, and banquets. The East Room was one of the last rooms to
+                       be finished and decorated, and it has undergone substantial redecoration over the past two
+                       centuries. Since 1964, the Committee for the Preservation of the White House has, by executive
+                       order, advised the President of the United States and First Lady of the United States on the decor,
+                       preservation, and conservation of the East Room and other public rooms at the White House.
+                       """)
+
+BigEastRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+BigEastRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
 #                  White House Executive Residence - Family Floor (2nd)
 #===========================================================================
 
@@ -1886,11 +1955,11 @@ WestRoom.NamePhrase = "West Room"
 
 WestRoom.SetDesc("L","""
                        West Room served, at various times, as a bedroom for Willie Lincoln, President Andrew Johnson,
-                       Andrew Johnson Jr. (President Johnson's son), Robert and Charles Taft (sons of President Taft),
-                       Joseph P. Lash (a close friend of First lady Eleanor Roosevelt), Reathel Odum (private secretary
-                       First Lady Bess Truman), John F. Kennedy Jr.; and Chuck and Lynda Bird Johnson Robb and their
-                       daughter. The room was converted into a playroom for First Daughter Amy Carter in 1977, and
-                       President Ronald Reagan had it set up as a fitness room.
+                       Andrew Johnson Jr. , Robert and Charles Taft, sons of President Taft, Joseph P. Lash, a close
+                       friend of First lady Eleanor Roosevelt, Reathel Odum, private secretary First Lady Bess Truman,
+                       John F. Kennedy Jr. and Chuck and Lynda Bird Johnson Robb and their daughter. The room was
+                       converted into a playroom for First Daughter Amy Carter in 1977 and President Ronald Reagan had
+                       it set up as a fitness room.
                        """)
 
 WestRoom.SetDesc("Odor","""
@@ -1915,8 +1984,7 @@ NorthHall.SetDesc("L","""
                        The North Hall was where President Abraham Lincoln stood as he delivered speeches to crowds on
                        the North Lawn. It was used as a schoolroom for Fanny and Scott Hayes, youngest children of
                        President Rutherford B. Hayes. The served as a maid's room during the two terms of President
-                       Theodore Roosevelt, as a bedroom for Maude Shaw (nursemaid for Caroline Kennedy and John F.
-                       Kennedy, Jr.), and as a clothing storage space for First Ladies Lady Bird Johnson and Nancy
+                       Theodore Roosevelt and as a clothing storage space for First Ladies Lady Bird Johnson and Nancy
                        Reagan.
                        """)
 
@@ -1939,13 +2007,12 @@ EastRoom = ClassOffice()
 EastRoom.NamePhrase = "East Room"
 
 EastRoom.SetDesc("L","""
-                       The East Room is an events and reception room in the White House, the home of the President of
-                       the United States. The largest room in the Executive Mansion, it is used for dances, receptions,
-                       press conferences, ceremonies, concerts, and banquets. The East Room was one of the last rooms to
-                       be finished and decorated, and it has undergone substantial redecoration over the past two
-                       centuries. Since 1964, the Committee for the Preservation of the White House has, by executive
-                       order, advised the President of the United States and First Lady of the United States on the decor,
-                       preservation, and conservation of the East Room and other public rooms at the White House.
+                       East Room's first documented use was as a bedroom for Frederick Dent, the father of First lady
+                       Julia Grant. It later served as a bedroom for President Chester Arthur, Kermit Roosevelt, Madge
+                       Wallace (mother of First Lady Bess Truman), Caroline Kennedy, Pat and Luci Nugent, daughter of
+                       President Lyndon B. Johnson, Tricia Nixon, Susan Ford, daughter of President Gerald Ford and Amy
+                       Carter. It was converted into an office for First Lady Nancy Reagan, but turned back into a
+                       bedroom for use by Chelsea Clinton, daughter of President Bill Clinton.
                        """)
 
 EastRoom.SetDesc("Odor","""
@@ -3704,13 +3771,14 @@ Roosevelt.Map = {North:     PressSecretary,
 RoseGarden.Map = {North:    WestColonade,
                  Northeast: PalmRoom,
                  Northwest: Cabinet,
-                 East:      KennedyGarden,
+                 East:      SouthLawn,
                  Southeast: SouthLawn,
                  West:      OvalOffice}
 
 SouthLawn.Map = {Northeast: KennedyGarden,
-                  South:     MarineOne,
-                  Northwest: RoseGarden,
+                 Northwest: RoseGarden,
+                     North: BlueRoom,
+                     South: MarineOne,
                   Up:        "There are no climbable trees here.",
                   Down:      "You can not go down."}
 
@@ -3904,6 +3972,14 @@ VermeilRoom.Map =          {North: Library,
 #               Executive Residence - State (1st)
 #-----------------------------------------------------
 
+NorthPortico.Map =          {North: NorthLawn,
+                             South: EntranceHall}
+
+NorthLawn.Map = {South: NorthPortico,
+                  Up:        "There are no climbable trees here.",
+                  Down:      "You can not go down."}
+
+
 GrandStaircase.Map =       {West: EntranceHall,
                            South: GreenRoom,
                        Southwest: CrossHall,
@@ -3920,7 +3996,7 @@ EntranceHall.Map =        {North: NorthPortico,
 
 CrossHall.Map =           {North: EntranceHall,
                            South: BlueRoom,
-                            East: EastRoom,
+                            East: BigEastRoom,
                             West: StateDining,
                        Southeast: RedRoom,
                        Southwest: GreenRoom,
@@ -3930,7 +4006,7 @@ FamilyDining.Map =        {South: StateDining,
                             East: EntranceHall,
                        Southeast: CrossHall}
 
-StateDining.Map =        {North: FamilyDining,
+StateDining.Map =         {North: FamilyDining,
                             East: RedRoom,
                        Northeast: CrossHall}
 
@@ -3946,8 +4022,19 @@ BlueRoom.Map =             {North: CrossHall,
                         Southwest: SouthPortico}
 
 GreenRoom.Map =             {North: CrossHall,
-                            East: EastRoom,
+                            East: BigEastRoom,
                             West: BlueRoom}
+
+BigEastRoom.Map =         {West: CrossHall,
+                       Southwest: GreenRoom}
+
+SouthPortico.Map =          {South: SouthLawn,
+                             North: BlueRoom,
+                         Northwest: RedRoom,
+                         Northeast: GreenRoom,
+                         Southeast: RoseGarden,
+                         Southwest: KennedyGarden}
+
 
 #-----------------------------------------------------
 #               Executive Residence - Family (2nd)
@@ -3972,12 +4059,38 @@ FamilyCenterHall.Map =     {North: NorthHall,
                             West: WestSittingHall,
                             East: StarLanding}
 
+NorthHall.Map =            {South: FamilyCenterHall,
+                            East: EastRoom,
+                            West: WestRoom}
 
 WestRoom.Map =            {South: FamilyCenterHall,
                             East: NorthHall}
 
 EastRoom.Map =            {South: FamilyCenterHall,
                             West: NorthHall}
+
+QueensBedroom.Map =       {South: EastSittingHall,
+                            West: QueensSitting}
+
+QueensSitting.Map =     {South: EastSittingHall,
+                     Southwest: EastSittingHall}
+
+EastSittingHall.Map =     {North: QueensBedroom,
+                       Northwest:  QueensSitting,
+                           South: LincolnBedroom,
+                       Southwest: LincolnSitting,
+                            West: StarLanding}
+
+LincolnBedroom.Map =       {North: EastSittingHall,
+                             East: TreatyRoom,
+                             West: LincolnSitting}
+
+LincolnSitting.Map =     {North: EastSittingHall,
+                           East: LincolnBedroom}
+
+TreatyRoom.Map =          {North: StarLanding,
+                           South: TrumanBalcony,
+                            West: YellowOvalRoom}
 
 YellowOvalRoom.Map =      {North: FamilyCenterHall,
                            South: TrumanBalcony,
@@ -3986,16 +4099,29 @@ YellowOvalRoom.Map =      {North: FamilyCenterHall,
                        Southeast: TrumanBalcony,
                        Southwest: TrumanBalcony}
 
+TrumanBalcony.Map =       {North: YellowOvalRoom,
+                       Northeast: SittingRoom,
+                       Northwest: TreatyRoom}
+
+PresidentsDiningRoom.Map = {South: WestSittingHall}
+
+WestSittingHall.Map =     {North: PresidentsDiningRoom,
+                            East: FamilyCenterHall,
+                           South: PresidentsBedroom,
+                       Southwest: DressingRoom}
 
 SittingRoom.Map =         {North: FamilyCenterHall,
                            South: TrumanBalcony,
                             West: PresidentsBedroom,
                             East: YellowOvalRoom}
 
-TreatyRoom.Map =          {North: StarLanding,
-                           South: TrumanBalcony,
-                            West: YellowOvalRoom}
+PresidentsBedroom.Map =   {North: FamilyCenterHall,
+                            West: PresidentsBedroom,
+                            East: YellowOvalRoom}
 
+DressingRoom.Map =        {North: EastSittingHall,
+                            East: FamilyCenterHall,
+                            West: PresidentsBedroom}
 
 
 #-----------------------------------------------------
@@ -4025,6 +4151,8 @@ EastColonnade.Map = {North: FamilyTheater,
                       West: VisitorsOffice}
 
 KennedyGarden.Map = {Southwest: SouthLawn,
+                         South: SouthLawn,
+                          East: EastGarden,
                           West: VisitorsOffice,
                          North: EastColonnade}
 
@@ -4043,7 +4171,7 @@ EastLobby.Map =          {West: EastGarden,
 
 Operations.Map =        {South: EastLobby,
                      Southwest: EastGarden,
-                            Up: Operations}
+                            Up: EastLobby}
 
 
 
