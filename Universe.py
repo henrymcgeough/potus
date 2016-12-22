@@ -185,9 +185,10 @@ def Universe_SetUpGame():
 
         # Since the loop we're in runs through all objects, all we need to do is
         # add the object's value (if it has one) to the maximum score.
+        # This is changed maxscore has been set to 100 for 100 days
 
-        if hasattr(Object,"Value"):
-            Global.MaxScore = Global.MaxScore + Object.Value
+        #if hasattr(Object,"Value"):
+        #    Global.MaxScore = Global.MaxScore + Object.Value
 
         
         #---------------------------
@@ -664,7 +665,7 @@ Global.LitParentList = []
 
 # You guessed it, the player's maximum (winning) score.
 
-Global.MaxScore = 0
+Global.MaxScore = 100
 
 
 #-----------------
@@ -2601,7 +2602,7 @@ class ClassBasicThing(ClassBaseObject):
 
         self.Memory = []
 
-                #--------------
+        #--------------
         # Parser Favors
         #--------------
         
@@ -2886,6 +2887,7 @@ class ClassBasicThing(ClassBaseObject):
         if UCDA == "LONG":   Say(self.LDesc());return
         if UCDA == "A":      Say(self.ADesc());return
         if UCDA == "THE":    Say(self.TheDesc());return
+        if UCDA == "ASK":    Say(self.AskDesc());return
         if UCDA == "HELLO":  Say(self.HelloDesc());return
         if UCDA == "HERE":   Say(self.HereDesc());return
         if UCDA == "CONTENT":Say(self.ContentDesc());return
@@ -3632,7 +3634,7 @@ class ClassBasicThing(ClassBaseObject):
     # location is returned, at which point we know we've reached the
     # outermost room.
 
-        # The heart of the routine is the while loop. Let's take this example.
+    # The heart of the routine is the while loop. Let's take this example.
     # Suppose we have the player carrying rock in a box in a forest.
     # Obviously, Me.ParentRoom(), Box.ParentRoom(), and Rock.ParentRoom()
     # should all return Forest, but how?
@@ -4313,6 +4315,16 @@ class ClassBasicThing(ClassBaseObject):
         return SCase(Phrase)
         
     
+    #------------------
+    # Ask Description
+    #------------------
+
+    def AskDesc(self):
+        """Returns 'Did you really expect a rock to speak?'"""
+
+        return Global.kernel.respond("one time I did this") # Global.InputString)
+
+
     #------------------
     # Hello Description
     #------------------
@@ -6802,9 +6814,42 @@ class ClassHelloVerb(ClassBasicVerb):
 HelloVerb = ClassHelloVerb("hello,hi")
 HelloThereVerb = ClassHelloVerb("hello,hi","there")
 
-AskAboutVerb = ClassHelloVerb("ask","about")
-SpeakVerb = ClassHelloVerb("speak","to")
-TalkVerb = ClassHelloVerb("talk","to")
+#====================================================================
+#                               Ask Verb
+#====================================================================
+
+class ClassAskVerb(ClassBasicVerb):
+    """Creates verb to handle Ask."""
+
+    def SetMyProperties(self):
+        """Sets default instance properties"""
+        self.ObjectAllowance = ALLOW_MULTIPLE_DOBJS + ALLOW_ONE_IOBJ + ALLOW_OPTIONAL_DOBJS
+        self.OkInDark = TRUE
+
+    def Action(self):
+        """Hello Action"""
+
+        if len(P.DOL()) == 0:
+            if P.CA() == Global.Player:
+                return Complain("Taking to yourself?")
+            else:
+                Say(P.CA().AskDesc())
+                return TURN_ENDS
+
+        #----------------------------
+        # One or more direct objects?
+        #----------------------------
+
+        for Object in P.DOL():
+            Object.MakeCurrent()
+            Object.MarkPronoun()
+            Object.DescribeSelf("ASK")
+
+        return TURN_ENDS
+
+AskAboutVerb = ClassAskVerb("ask","about")
+SpeakVerb = ClassAskVerb("speak","to")
+TalkVerb = ClassAskVerb("talk","to")
 
 
 #=====================================================================

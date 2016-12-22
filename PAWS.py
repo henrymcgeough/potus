@@ -40,33 +40,38 @@ import random           # Random # generator & functions
 # Curses Terminal Support
 #------------------------
 
-#try:
-import curses       # Basic Curses character terminal support
-#except:
-#    pass
+try:
+    import curses       # Basic Curses character terminal support
+except:
+    pass
 
 #------------------------
 # WConio Terminal Support
 #------------------------
 
-#try:
-#import WConio       # Windows 32-bit Console
-#except:
-#    pass
+try:
+    import WConio       # Windows 32-bit Console
+except:
+    pass
 
 #-----------------------------------------
 # Tkinter Terminal Support (Nathan Barnes)
 #-----------------------------------------
 
-#try:
-import thread       # Multithreading support
-import Tkinter      # Tkinter interface API
-import tkMessageBox # Tkinter message box object
-import time         # Time function support
-#except:
-#    pass
+try:
+    import thread       # Multithreading support
+    import Tkinter      # Tkinter interface API
+    import tkMessageBox # Tkinter message box object
+    import time         # Time function support
+except:
+    pass
 
-     
+#------------------------------------------
+# AIML
+#------------------------------------------
+
+import aiml
+import os
 
 #----------------------------
 # Bootstrap Classes/Functions
@@ -2297,6 +2302,7 @@ except:
 OldTerminal = Terminal
 
 
+
 #------------------------------
 # Try To Set Up WConio Terminal
 #------------------------------
@@ -4031,6 +4037,12 @@ class ClassGlobal(ClassFundamental):
         self.Transcribe = FALSE
         self.LogFile = 0
         self.DebugFile = 0
+
+        #------------
+        # AIML Kernel
+        #------------
+
+        self.kernel = aiml.Kernel()
         
 
 
@@ -4320,8 +4332,8 @@ class ClassParser(ClassFundamental):
         # Next, translate the InputString into a list of words, and put
         # that list in TempWordList.
 
-        InputString = Terminal.Input(self.Prompt(0))
-        TempWordList = string.split(InputString)
+        Global.InputString = Terminal.Input(self.Prompt(0))
+        TempWordList = string.split(Global.InputString)
 
         
         #-------------------------

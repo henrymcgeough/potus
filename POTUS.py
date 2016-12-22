@@ -146,6 +146,8 @@ from Universe import *
 import aiml
 import os
 
+#kernel = aiml.Kernel()
+
 #********************************************************************
 #                          G A M E   D A T A
 #********************************************************************
@@ -244,6 +246,25 @@ def POTUSUserSetUpGame():
 
     
     #------------
+    # AIML Actors
+    #------------
+
+    # The parser needs to be told who the current actor is because it
+    # doesn't know until the player types in their first command. And the
+    # first room is entered before that happens...
+
+    #Global.kernel = aiml.Kernel()
+
+    Global.kernel.bootstrap(learnFiles = "bots.xml", commands = "load aiml b")
+
+
+    #if os.path.isfile("bot_brain.brn"):
+    #    kernel.bootstrap(brainFile = "bot_brain.brn")
+    #else:
+    #    kernel.bootstrap(learnFiles = "bots.xml", commands = "load aiml b")
+    #    kernel.saveBrain("bot_brain.brn")
+
+    #------------
     # First Actor
     #------------
 
@@ -270,7 +291,9 @@ def POTUSUserSetUpGame():
     #---------------------------------
     # Ask About Additional Conventions
     #---------------------------------
-    
+
+    #Terminal.ClearScreen()
+
     Answer = Terminal.Input("This game uses additional conventions most IF doesn't. View them (Y/N)? ")
 
     if len(Answer)==0: Answer="No"
@@ -285,11 +308,11 @@ def POTUSUserSetUpGame():
             carefully'. ~p
             Likewise, if you want to be more precise in other commands you might
             say things like 'take rock carefully', 'move east slowly', etc.~p
-            You have to last 100 days to win the game but... in this game a day goes by in an hour.~p          
-            The player's character has been forced into a
-            situation not of their own choosing where nothing is as it seems and
-            paranoia is just common sense. Trust nothing, examine everything,
-            believe no one...~p ~m
+            The player's character has been forced into a situation not of their own
+            choosing where nothing is as it seems and paranoia is just common sense.
+            Trust nothing, examine everything, believe no one...~p
+            You have to last 100 days to win the game but... in this game a day goes
+            by in an hour.~p ~m
             """)
     
 #--------------------------------------------------
@@ -503,6 +526,10 @@ class ClassOffice(ClassPOTUSRoom):
 # many in POTUS we chose this method to make rooms easier to find.
 
 
+#===========================================================================
+#                           White House West Wing
+#===========================================================================
+
 
 #===========================================================================
 #                           Oval Office (Room #1)
@@ -645,10 +672,8 @@ RoseGarden.SetDesc("L","""
                        The White House Rose Garden is a garden bordering the Oval Office and the
                        West Wing of the White House in Washington, D.C., United States. The garden
                        is approximately 125 feet long and 60 feet wide. It balances the Jacqueline
-                       Kennedy Garden on the east side of the White House Complex.
-
-                       The West colonnade is north, the South Lawn is south and the Kennedy Garden
-                       is east.
+                       Kennedy Garden on the east side of the White House Complex. The West colonnade
+                       is north, the South Lawn is south and the Kennedy Garden is east.
                        """)
 
 RoseGarden.SetDesc("Odor","""
@@ -871,21 +896,17 @@ Situation.NamePhrase = "The Situation Room "
 Situation.SetDesc("L","""
                      Months after being sworn into office, President John F. Kennedy was
                      confronted with the Bay of Pigs Invasion in Cuba and insisted that
-                     intelligence information feed directly into the White House.
-                     The Situation Room was established in 1961 to meet President Kennedy\'s
-                     request.
-
-                     The current Sit Room is a 5,000-square-foot complex of rooms that is
-                     staffed 24 hours a day, seven days a week to monitor national and
-                     world intelligence information. Televisions for secure video conferences
-                     and technology can link the President to generals and world leaders
-                     around the globe.
+                     intelligence information feed directly into the White House. The Sit
+                     Room is a 5,000-square-foot complex of rooms that is staffed 24 hours
+                     a day, seven days a week to monitor national and world intelligence
+                     information. Televisions for secure video conferences and technology
+                     can link the President to generals and world leaders around the globe.
                      """)
 
 Situation.SetDesc("Odor","""
-                        Now that you concentrate you can smell the faintest whiff
-                        of freshly baked cookies!
-                        """)
+                    Now that you concentrate you can smell the faintest whiff of freshly
+                    baked cookies!
+                    """)
 
 Situation.SetDesc("Sound","You can hear the sound of deep military thinking.")
 
@@ -900,12 +921,11 @@ NavyMess = ClassOffice()
 NavyMess.NamePhrase = "Navy Mess"
 
 NavyMess.SetDesc("L","""
-                            Navy Stewards have provided food service to the Commander in Chief
-                            since 1880. The modern White House Navy Mess was established under
-                            President Harry S. Truman in 1951. The Navy\'s culinary specialists
-                            prepare and serve fine foods in the West Wing. The Staircase leading
-                            up is in north and the Situation Room is west.
-                            """)
+                    Navy Stewards have provided food service to the Commander in Chief since 1880.
+                    The modern White House Navy Mess was established under President Harry S. Truman
+                    in 1951. The Navy\'s culinary specialists prepare and serve fine foods in the
+                    West Wing. The Staircase leading up is in north and the Situation Room is west.
+                    """)
 
 NavyMess.SetDesc("Odor","You smell hot metal and dust.")
 NavyMess.SetDesc("Sound","You can hear a faint sound behind the door.")
@@ -933,14 +953,6 @@ WestWingEntrance.SetDesc("L","""
                       President, Vice President, and White House staff. The current lobby was
                       renovated by Richard Nixon in 1970 to provide a smaller, more intimate
                       receiving space.
-
-                      The large gilt clock was likely created from assembled parts to imitate
-                      an early nineteenth century clock, similar to those used in churches and
-                      other public buildings. The artist inscribed the name 'Simon Willard,' an
-                      important clock maker at the turn of the nineteenth century.
-
-                      The English-made mahogany bookcase (c.1770) is one of the oldest pieces of
-                      furniture in the White House collection.
                       """)
 
 WestWingEntrance.SetDesc("Sound","Just the wind moaning mournfully. Suits your mood perfectly.")
@@ -1139,6 +1151,11 @@ PressBriefing.SetDesc("L","""
                         assigned.
                     """)
 
+PressBriefing.SetDesc("Odor","""
+                          You can smell damp newspapers.  The air is cool like fall and a
+                          crispness tickles your nose.
+                          """)
+
 PressBriefing.SetDesc("Sound","""
                         You can hear cameras and sound equipment whiring and the clothes rustling.
                         It's quite a soothing sound, almost enough to make you want to go to
@@ -1195,6 +1212,7 @@ WhiteHouseEntrance.SetDesc("Odor","""
 
 WhiteHouseEntrance.SetDesc("Sound","You can hear the sound of assassins cocking high powered rifles.")
 
+
 #===========================================================================
 #                            Presidential State Car (United States)
 #===========================================================================
@@ -1214,6 +1232,1410 @@ Limousine.SetDesc("L","""
                           """)
 
 Limousine.SetDesc("Sound","You can hear the sound of comfort.")
+
+#===========================================================================
+#                   White house Executive Residence - Ground Floor
+#===========================================================================
+
+#===========================================================================
+#                                Kitchen (Room #6)
+#===========================================================================
+
+# White House Kitchen.
+
+Kitchen = ClassOffice()
+
+Kitchen.NamePhrase = "Kitchen"
+
+Kitchen.SetDesc("L","""
+                       The White House kitchen is where meals are prepared for the First Family and
+                       guests - including everything from family breakfasts to state dinners. The
+                       work of the White House chefs ranges from tending to fresh produce harvested
+                       from the White House Kitchen Garden to constructing the holiday White House
+                       gingerbread house.
+                       """)
+
+Kitchen.SetDesc("Odor","""
+                          You can smell delious food cooking.
+                          """)
+
+Kitchen.SetDesc("Sound","You can hear the sound of cockroaches chirping.")
+
+
+#===========================================================================
+#                                Curator (Room #6)
+#===========================================================================
+
+# White House Curator.
+
+Curator = ClassOffice()
+
+Curator.NamePhrase = "Curator"
+
+Curator.SetDesc("L","""
+                       The White House Office of the Curator is charged with the conservation and study of the
+                       collection of fine art, furniture and decorative objects used to furnish both the public and
+                       private rooms of the White House as an official residence and as an accredited historic house
+                       museum.
+                       """)
+
+Curator.SetDesc("Odor","""
+                          You can smell cleaning products and polish.
+                          """)
+
+Curator.SetDesc("Sound","You can hear the sound of dusting.")
+
+
+#===========================================================================
+#                    White House State staircase (Room #6)
+#===========================================================================
+
+# White House State Staircase.
+
+StateStaircase = ClassOffice()
+
+StateStaircase.NamePhrase = "State Staircase"
+
+StateStaircase.SetDesc("L","""
+                       The State Staircase leads up to the State Floor of the Executive residence.
+                       """)
+
+StateStaircase.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+StateStaircase.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+#===========================================================================
+#                                House Keeper (Room #6)
+#===========================================================================
+
+# White House House Keeper.
+
+HouseKeeper = ClassOffice()
+
+HouseKeeper.NamePhrase = "House Keeper"
+
+HouseKeeper.SetDesc("L","""
+                       The housekeeper is in charge of the various maids and other servants of the
+                       White House under the Chief Usher. The Housekeeper's reception room is about
+                       12 feet square.
+                       """)
+
+HouseKeeper.SetDesc("Odor","""
+                          You can smell cleaning products and polish.
+                          """)
+
+HouseKeeper.SetDesc("Sound","You can hear the sound of dusting.")
+
+#===========================================================================
+#                                White House Doctor (Room #6)
+#===========================================================================
+
+# White House Doctor.
+
+MedicalUnit = ClassOffice()
+
+MedicalUnit.NamePhrase = "House Doctor"
+
+MedicalUnit.SetDesc("L","""
+                       The White House Medical Unit (WHMU) is a unit of the White House Military
+                       Office and is responsible for the medical needs of White House staff and
+                       visitors. The unit also provides medical care to the President, the Vice
+                       President, their families, and international dignitaries visiting the
+                       White House.
+                       """)
+
+MedicalUnit.SetDesc("Odor","""
+                          You can smell medical products.
+                          """)
+
+MedicalUnit.SetDesc("Sound","You can hear the sound of healing.")
+
+
+#===========================================================================
+#                                Library (Room #6)
+#===========================================================================
+
+# White House Library.
+
+Library = ClassOffice()
+
+Library.NamePhrase = "Library"
+
+Library.SetDesc("L","""
+                       The White House Library is on the Ground Floor of the White House, the
+                       official home of the President of the United States. The room is
+                       approximately 27 by 23 feet and is in the northeast of the ground floor.
+                       The Library is used for teas and meetings hosted by the President and
+                       First Lady.
+                       """)
+
+Library.SetDesc("Odor","""
+                          You can smell old books.
+                          """)
+
+Library.SetDesc("Sound","You can hear the sound of silence.")
+
+
+#===========================================================================
+#                                Secret Service Office (Room #6)
+#===========================================================================
+
+# White House Secret Service.
+
+SecretServiceOffice = ClassOffice()
+
+SecretServiceOffice.NamePhrase = "Secret Service Office"
+
+SecretServiceOffice.SetDesc("L","""
+                       The Secret Service's initial responsibility was to investigate counterfeiting
+                       of U.S. currency, which was rampant following the U.S. Civil War. The agency
+                       then evolved into the United States' first domestic intelligence and
+                       counterintelligence agency. Many of the agency's missions were later taken
+                       over by subsequent agencies such as the Federal Bureau of Investigation (FBI),
+                       Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF), and Internal Revenue
+                       Service (IRS).
+                       """)
+
+SecretServiceOffice.SetDesc("Odor","""
+                          You can smell guns and ammo.
+                          """)
+
+SecretServiceOffice.SetDesc("Sound","You can hear the sound of military precision.")
+
+
+#===========================================================================
+#                                Center Hall (Room #6)
+#===========================================================================
+
+# White House Center Hall.
+
+CenterHall = ClassOffice()
+
+CenterHall.NamePhrase = "Center Hall"
+
+CenterHall.SetDesc("L","""
+                       Like all the floors, the ground floor of the White House features a large central
+                       hall. But the ground floor's hall has a dramatic vaulted ceiling that helps transfer
+                       the weight of the upper floors to the main supporting walls. Originally, this vaulting
+                       was a functional architectural element, but when the White House was rebuilt in 1952,
+                       the steel infrastructure made it unnecessary. The look was retained anyway, but it is
+                       now essentially decorative.
+                       """)
+
+CenterHall.SetDesc("Odor","""
+                          You can smell floor polish.
+                          """)
+
+CenterHall.SetDesc("Sound","You can hear birds singing coming from the garden outside.")
+
+
+#===========================================================================
+#                                Basement Hall (Room #6)
+#===========================================================================
+
+# White House Basement Hall.
+
+BasementHall = ClassOffice()
+
+BasementHall.NamePhrase = "Basement Hall"
+
+BasementHall.SetDesc("L","""
+                       The White House Basement is actually located under the North Portico. There is access
+                       to the Basement rooms by way of the north hall on the ground floor and also by doors
+                       in the two open courts on either side of the North Portico. Because of these courts,
+                       some rooms in the Basement have windows. The basement meets the north hall in the
+                       east-west Basement hall, a 9-foot-wide corridor 82 feet long.
+
+                       The basement contains, among other areas, the Carpenters' Shop, Engineers' Shop, Flower
+                       Shop, Chocolate Shop, Cold Storage, Paint Shop, Grounds Office, Housekeeping Office and
+                       Laundry. It also contains Richard Nixon's Bowling Alley.
+                       """)
+
+BasementHall.SetDesc("Odor","""
+                          You can smell flowers.
+                          """)
+
+BasementHall.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+#===========================================================================
+#                                Curator (Room #6)
+#===========================================================================
+
+# White House Secret Service.
+
+SecretServiceOffice = ClassOffice()
+
+SecretServiceOffice.NamePhrase = "Curator"
+
+SecretServiceOffice.SetDesc("L","""
+                       The Secret Service's initial responsibility was to investigate counterfeiting
+                       of U.S. currency, which was rampant following the U.S. Civil War. The agency
+                       then evolved into the United States' first domestic intelligence and
+                       counterintelligence agency. Many of the agency's missions were later taken
+                       over by subsequent agencies such as the Federal Bureau of Investigation (FBI),
+                       Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF), and Internal Revenue
+                       Service (IRS).
+                       """)
+
+SecretServiceOffice.SetDesc("Odor","""
+                          You can smell guns and ammo.
+                          """)
+
+SecretServiceOffice.SetDesc("Sound","You can hear the sound of military precision.")
+
+
+
+#===========================================================================
+#                                Map Room (Room #6)
+#===========================================================================
+
+# White House Map room.
+
+MapRoom = ClassOffice()
+
+MapRoom.NamePhrase = "Map Room"
+
+MapRoom.SetDesc("L","""
+                       The Map Room is a room on the ground floor of the White House, the official home of the
+                       President of the United States. The Map Room takes its name from its use during World
+                       War II, when Franklin Roosevelt used it as a situation room where maps were consulted to
+                       track the war's progress, for such purposes it was later replaced by the West Wing
+                       Situation Room.
+                       """)
+
+MapRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+MapRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                                Diplomatic Reception Room (Room #6)
+#===========================================================================
+
+# White House Diplomatic Reception Room.
+
+DiplomaticRoom = ClassOffice()
+
+DiplomaticRoom.NamePhrase = "Diplomatic Reception Room"
+
+DiplomaticRoom.SetDesc("L","""
+                       The Diplomatic Reception Room is one of three oval rooms in the residence of the White House,
+                       the official home of the President of the United States. It is located on the ground floor and
+                       is used as an entrance from the South Lawn, and a reception room for foreign ambassadors to
+                       present their credentials, a ceremony formerly conducted in the Blue Room. The room is the
+                       point of entry to the White House for a visiting head of state following the State Arrival
+                       Ceremony on the South Lawn. The room has four doors, which lead to the Map Room, the Center
+                       Hall, the China Room, and a vestibule that leads to the South Lawn.
+                       """)
+
+DiplomaticRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+DiplomaticRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                                China Room (Room #6)
+#===========================================================================
+
+# White House China Room.
+
+ChinaRoom = ClassOffice()
+
+ChinaRoom.NamePhrase = "China Room"
+
+ChinaRoom.SetDesc("L","""
+                       The China Room is one of the rooms on the Ground Floor of the White House, the home of the
+                       President of the United States. The White House's collection of state china is displayed there.
+                       The collection ranges from George Washington's Chinese export china to Bill Clinton's ivory,
+                       yellow, and burnished gold china. The room is primarily used by the first lady for teas, meetings,
+                       and smaller receptions.
+                       """)
+
+ChinaRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+ChinaRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                                Vermeil Room (Room #6)
+#===========================================================================
+
+# White House Vermeil Room.
+
+VermeilRoom = ClassOffice()
+
+VermeilRoom.NamePhrase = "Vermeil Room"
+
+VermeilRoom.SetDesc("L","""
+                       The Vermeil Room is located on the ground floor of the White House, the official residence of the
+                       President of the United States. The room houses a collection of silver-gilt or vermeil tableware,
+                       a 1956 bequest to the White House by Margaret Thompson Biddle. Portraits of American First Ladies
+                       hang in the room.
+                       """)
+
+VermeilRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+VermeilRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                                West Court (Room #6)
+#===========================================================================
+
+# West Court.
+
+WestCourt = ClassOffice()
+
+WestCourt.NamePhrase = "West Court"
+
+WestCourt.SetDesc("L","""
+                       A courtyard that leads from the Palm Room to the Basement Hall.
+                       """)
+
+WestCourt.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+WestCourt.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                  White House Executive Residence - State Floor (1st)
+#===========================================================================
+
+
+#===========================================================================
+#                    White House North Portico (Room #6)
+#===========================================================================
+
+# White House North Portico.
+
+NorthPortico = ClassOffice()
+
+NorthPortico.NamePhrase = "North Portico"
+
+NorthPortico.SetDesc("L","""
+                       The front door of the White House opens out onto the North Portico, facing Pennsylvania Avenue.
+                       Constructed in 1829-30, the portico provides covered access to the Entrance Hall. Once the
+                       principal entrance to the White House for both the family and the public, the north doorway is
+                       now where the President and First Lady greet guests of state before gala dinners. Visitors on
+                       public tours also exit through this doorway.
+                       """)
+
+NorthPortico.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+NorthPortico.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House South Portico (Room #6)
+#===========================================================================
+
+# White House South Portico.
+
+SouthPortico = ClassOffice()
+
+SouthPortico.NamePhrase = "South Portico"
+
+SouthPortico.SetDesc("L","""
+                       The President's Back Door, Added around 1830, the South Portico was added to the White House, in
+                       keeping with the Federal Style and the original designs for the building. The ground floor of the
+                       south portico (under the state floor porch) includes storage rooms and rest rooms. These are
+                       accessible from the outside of the building for guests on the south lawn.
+                       """)
+
+SouthPortico.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+SouthPortico.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    White House Old Family Dining Room (Room #6)
+#===========================================================================
+
+# White House North Portico.
+
+FamilyDining = ClassOffice()
+
+FamilyDining.NamePhrase = "Old Family Dining Room"
+
+FamilyDining.SetDesc("L","""
+                       The Family Dining Room is a dining room located on the State Floor of the White House, the
+                       official residence of the President of the United States. The room is used for smaller, more
+                       private meals than those served in the State Dining Room. Used in the 1800s as a space for the
+                       First Family to have their meals, the Family Dining Room was used less for family meals and more
+                       for working lunches and small dinners in the 20th and 21st centuries.
+                       """)
+
+FamilyDining.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+FamilyDining.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House State Dining Room (Room #6)
+#===========================================================================
+
+# White House State Dining Room.
+
+StateDining = ClassOffice()
+
+StateDining.NamePhrase = "State Dining Room"
+
+StateDining.SetDesc("L","""
+                       The State Dining Room is the larger of two dining rooms on the State Floor of the Executive
+                       Residence of the White House, the home of the President of the United States in Washington, D.C.
+                       It is used for receptions, luncheons, larger formal dinners, and state dinners for visiting heads
+                       of state on state visits. The room seats 140 and measures approximately 48 by 36 feet.
+                       """)
+
+StateDining.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+StateDining.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House Red Room (Room #6)
+#===========================================================================
+
+# White House Red Room.
+
+RedRoom = ClassOffice()
+
+RedRoom.NamePhrase = "Red Room"
+
+RedRoom.SetDesc("L","""
+                       The Red Room is one of three state parlors on the State Floor in the White House, the home of the
+                       President of the United States in Washington, D.C., in the United States. The room has served as
+                       a parlor and music room, and recent presidents have held small dinner parties in it. It has been
+                       traditionally decorated in shades of red. The room is approximately 28 by 22.5 feet. It has six
+                       doors, which open into the Cross Hall, Blue Room, South Portico, and State Dining Room.
+                       """)
+
+RedRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+RedRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    White House Blue Room (Room #6)
+#===========================================================================
+
+# White House Red Room.
+
+BlueRoom = ClassOffice()
+
+BlueRoom.NamePhrase = "Blue Room"
+
+BlueRoom.SetDesc("L","""
+                       The Blue Room is one of three state parlours on the first floor in the White House, the residence
+                       of the President of the United States. It is distinct for its oval shape. The room is used for
+                       receptions and receiving lines, and is occasionally set for small dinners. President Grover
+                       Cleveland married Frances Folsom in the room on June 2, 1886, the only wedding of a President and
+                       First Lady in the White House. The room is traditionally decorated in shades of blue. With the
+                       Yellow Oval Room above it and the Diplomatic Reception Room below it, the Blue Room is one of
+                       three oval rooms in James Hoban's original design for the White House.
+                       """)
+
+BlueRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+BlueRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House Green Room (Room #6)
+#===========================================================================
+
+# White House Green Room.
+
+GreenRoom = ClassOffice()
+
+GreenRoom.NamePhrase = "Green Room"
+
+GreenRoom.SetDesc("L","""
+                       The Green Room is one of three state parlors on the first floor in the White House, the home of
+                       the President of the United States. It is used for small receptions and teas. During a state
+                       dinner, guests are served cocktails in the three state parlors before the president, first lady,
+                       and visiting head of state descend the Grand Staircase for dinner. The room is traditionally
+                       decorated in shades of green.
+                       """)
+
+GreenRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+GreenRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House Cross Hall (Room #6)
+#===========================================================================
+
+# White House Green Room.
+
+CrossHall = ClassOffice()
+
+CrossHall.NamePhrase = "Cross Hall"
+
+CrossHall.SetDesc("L","""
+                       The Cross Hall is a broad hallway on the first floor in the White House, the official residence
+                       of the President of the United States. It runs east to west connecting the State Dining Room with
+                       the East Room. The room is used for receiving lines following a State Arrival Ceremony on the South
+                       Lawn, or a procession of the President and a visiting head of state and their spouses.
+                       """)
+
+CrossHall.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+CrossHall.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    White House Grand Staircase (Room #6)
+#===========================================================================
+
+# White House Grand Staircase.
+
+GrandStaircase = ClassOffice()
+
+GrandStaircase.NamePhrase = "Grand Staircase"
+
+GrandStaircase.SetDesc("L","""
+                       The Grand Staircase is the chief stairway connecting the State Floor and the Second Floor of the
+                       White House, the official home of the President of the United States. The stairway is primarily
+                       used for a ceremony called the Presidential Entrance March. The present Grand Staircase, the
+                       fourth staircase occupying the same general space, was completed in 1952 as a part of the Truman
+                       White House reconstruction. The Grand Staircase is entered on the State Floor from the Entrance
+                       Hall.
+                       """)
+
+GrandStaircase.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+GrandStaircase.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    White House Entrance Hall (Room #6)
+#===========================================================================
+
+# White House Entrance Hall.
+
+EntranceHall = ClassOffice()
+
+EntranceHall.NamePhrase = "Entrance Hall"
+
+EntranceHall.SetDesc("L","""
+                       The Entrance Hall (also called the Grand Foyer) is the primary and formal entrance to the White
+                       House, the official residence of the President of the United States. The room is rectilinear in
+                       shape and measures approximately 31 by 44 feet. Located on the State Floor, the room is entered
+                       from outdoors through the North Portico, which faces the North Lawn and Pennsylvania Avenue. The
+                       south side of the room opens to the Cross Hall through a screen of paired Roman Doric columns.
+                       The east wall opens to the Grand Staircase.
+                       """)
+
+EntranceHall.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+EntranceHall.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                  White House Executive Residence - Family Floor (2nd)
+#===========================================================================
+
+#===========================================================================
+#                    White House West Room (Room #6)
+#===========================================================================
+
+# White House West Room.
+
+WestRoom = ClassOffice()
+
+WestRoom.NamePhrase = "West Room"
+
+WestRoom.SetDesc("L","""
+                       West Room served, at various times, as a bedroom for Willie Lincoln, President Andrew Johnson,
+                       Andrew Johnson Jr. (President Johnson's son), Robert and Charles Taft (sons of President Taft),
+                       Joseph P. Lash (a close friend of First lady Eleanor Roosevelt), Reathel Odum (private secretary
+                       First Lady Bess Truman), John F. Kennedy Jr.; and Chuck and Lynda Bird Johnson Robb and their
+                       daughter. The room was converted into a playroom for First Daughter Amy Carter in 1977, and
+                       President Ronald Reagan had it set up as a fitness room.
+                       """)
+
+WestRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+WestRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    White House North hall (Room #6)
+#===========================================================================
+
+# White House North Hall.
+
+NorthHall = ClassOffice()
+
+NorthHall.NamePhrase = "North Hall"
+
+NorthHall.SetDesc("L","""
+                       The North Hall was where President Abraham Lincoln stood as he delivered speeches to crowds on
+                       the North Lawn. It was used as a schoolroom for Fanny and Scott Hayes, youngest children of
+                       President Rutherford B. Hayes. The served as a maid's room during the two terms of President
+                       Theodore Roosevelt, as a bedroom for Maude Shaw (nursemaid for Caroline Kennedy and John F.
+                       Kennedy, Jr.), and as a clothing storage space for First Ladies Lady Bird Johnson and Nancy
+                       Reagan.
+                       """)
+
+NorthHall.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+NorthHall.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    White House East Room (Room #6)
+#===========================================================================
+
+# White House East Room.
+
+EastRoom = ClassOffice()
+
+EastRoom.NamePhrase = "East Room"
+
+EastRoom.SetDesc("L","""
+                       The East Room is an events and reception room in the White House, the home of the President of
+                       the United States. The largest room in the Executive Mansion, it is used for dances, receptions,
+                       press conferences, ceremonies, concerts, and banquets. The East Room was one of the last rooms to
+                       be finished and decorated, and it has undergone substantial redecoration over the past two
+                       centuries. Since 1964, the Committee for the Preservation of the White House has, by executive
+                       order, advised the President of the United States and First Lady of the United States on the decor,
+                       preservation, and conservation of the East Room and other public rooms at the White House.
+                       """)
+
+EastRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+EastRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    White House Residence staircase (Room #6)
+#===========================================================================
+
+# White House Residence Staircase.
+
+ResidenceStaircase = ClassOffice()
+
+ResidenceStaircase.NamePhrase = "Residence Staircase"
+
+ResidenceStaircase.SetDesc("L","""
+                       The Residence Staircase leads down down to the Ground Floor of the Executive Residence and the
+                       Grand Staircase.
+                       """)
+
+ResidenceStaircase.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+ResidenceStaircase.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    President's Dining Room (Room #6)
+#===========================================================================
+
+# White House Residence Staircase.
+
+PresidentsDiningRoom = ClassOffice()
+
+PresidentsDiningRoom.NamePhrase = "President's Dining Room"
+
+PresidentsDiningRoom.SetDesc("L","""
+                       The President's Dining Room is a dining room located in the northwest corner of the second floor
+                       of the White House. It is located directly above the Family Dining Room on the State Floor and
+                       looks out upon the North Lawn. The Dining Room is adjacent to the Family Kitchen, a small kitchen
+                       designed for use by the First Family, and served by a dumbwaiter connected to the main kitchen on
+                       the ground floor.
+                       """)
+
+PresidentsDiningRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+PresidentsDiningRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    West Sitting Hall (Room #6)
+#===========================================================================
+
+# White House West Sitting Hall.
+
+WestSittingHall = ClassOffice()
+
+WestSittingHall.NamePhrase = "West Sitting Hall"
+
+WestSittingHall.SetDesc("L","""
+                       The West Sitting Hall is located on the second floor of the White House, home of the President of
+                       the United States. The room is entered from the second floor Center Hall on the east side of the
+                       room. The room features a large lunette window on the west wall looks out upon the West Colonnade,
+                       the West Wing, and the Old Executive Office Building. The room is used by first families as a less
+                       formal living room than the Yellow Oval Room.
+                       """)
+
+WestSittingHall.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+WestSittingHall.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    East Sitting Hall (Room #6)
+#===========================================================================
+
+# White House West Sitting Hall.
+
+EastSittingHall = ClassOffice()
+
+EastSittingHall.NamePhrase = "East Sitting Hall"
+
+EastSittingHall.SetDesc("L","""
+                       The East Sitting Hall is located on the second floor of the White House, home of the President of
+                       the United States. First used as a reception room for guests of the president, the Lincoln Bedroom
+                       and the Queens Bedroom were originally offices of the chief executive, it is now a family parlor
+                       with access to the east rooms on the second floor.
+                       """)
+
+EastSittingHall.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+EastSittingHall.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Dressing Room (Room #6)
+#===========================================================================
+
+# White House Dressing Room.
+
+DressingRoom = ClassOffice()
+
+DressingRoom.NamePhrase = "Dressing Room"
+
+DressingRoom.SetDesc("L","""
+                       The dressing room in the southwest corner of the suite has historically served as the First
+                       Lady's dressing room, study, or bedroom and has a walk-in closet and bathroom. The suite is
+                       also served by a walk-through closet leading to the bedroom, which also has a large bathroom.
+                       The room currently used as a living room, immediately west of the Yellow Oval Room, was
+                       historically used as the president's private bedroom until the 1970s.
+                       """)
+
+DressingRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+DressingRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    President's Bedroom (Room #6)
+#===========================================================================
+
+# White House President's Bedroom.
+
+PresidentsBedroom = ClassOffice()
+
+PresidentsBedroom.NamePhrase = "President's Bedroom"
+
+PresidentsBedroom.SetDesc("L","""
+                       The President's Bedroom is a second floor bedroom in the White House. The bedroom makes up the
+                       White House master suite along with the adjacent sitting room and the smaller dressing room, all
+                       located in the southwest corner. Prior to the Ford Administration it was common for the President
+                       and First Lady to have separate bedrooms. Until then this room was used mostly as the First Lady's
+                       bedroom; however, it was the sleeping quarters for President Lincoln.
+                       """)
+
+PresidentsBedroom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+PresidentsBedroom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Private Sitting Room (Room #6)
+#===========================================================================
+
+# White House Private Sitting Room.
+
+SittingRoom = ClassOffice()
+
+SittingRoom.NamePhrase = "Private Sitting Room"
+
+SittingRoom.SetDesc("L","""
+                       During the 1952 renovation, a dressing room was built which straddled the wall between this room
+                       and the large bedroom to the west. This dressing room could only be accessed from the small
+                       bedroom. A full bath was also created in the northeast corner of the room. The space continued to
+                       be used as a bedroom by President Dwight D. Eisenhower; President John F. Kennedy; and President
+                       Richard Nixon all of whom slept in the room. The room was turned into a living room and study by
+                       President Gerald Ford, and it has remained a study and living room into 2013.
+                       """)
+
+SittingRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+SittingRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Yellow Oval Room (Room #6)
+#===========================================================================
+
+# White House Yellow Oval Room.
+
+YellowOvalRoom = ClassOffice()
+
+YellowOvalRoom.NamePhrase = "Yellow Oval Room"
+
+YellowOvalRoom.SetDesc("L","""
+                       The Yellow Oval Room is an oval room located on the south side of the second floor in the White
+                       House, the official residence of the President of the United States. First used as a drawing room
+                       in the John Adams administration it has been used as a library, office, and family parlor. Today
+                       the Yellow Oval Room is used for small receptions and for greeting heads of states immediately
+                       before a State Dinner.
+
+                       The room is entered from the Center Hall on the north side of the room. Three large windows on the
+                       south side of the room face the South Lawn and The Ellipse. The southwest window has a swing-sash
+                       door leading to the Truman Balcony. Double doors on the west side of the room, with flags of the
+                       United States and of the presidency on either side, lead to the president and first lady's
+                       bedrooms, private sitting room and dressing room.
+                       """)
+
+YellowOvalRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+YellowOvalRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                    Truman Balcony (Room #6)
+#===========================================================================
+
+# White House Truman Balcony.
+
+TrumanBalcony = ClassOffice()
+
+TrumanBalcony.NamePhrase = "Truman Balcony"
+
+TrumanBalcony.SetDesc("L","""
+                       The Truman Balcony is the second-floor balcony of the Executive Residence of the White House,
+                       which overlooks the south lawn. It was completed in March 1948, during the presidency of Harry S.
+                       Truman.
+                       """)
+
+TrumanBalcony.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+TrumanBalcony.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+#===========================================================================
+#                    Star Landing (Room #6)
+#===========================================================================
+
+# White House Star Landing.
+
+StarLanding = ClassOffice()
+
+StarLanding.NamePhrase = "Star Landing"
+
+StarLanding.SetDesc("L","""
+                       The Star landing connects to the Grand Staircase in the North, the Center Hall in the West and
+                       East Sitting Room in the East.
+                       """)
+
+StarLanding.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+StarLanding.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House Family Center Hall (Room #6)
+#===========================================================================
+
+# White House Center Hall.
+
+FamilyCenterHall = ClassOffice()
+
+FamilyCenterHall.NamePhrase = "Center Hall"
+
+FamilyCenterHall.SetDesc("L","""
+                       The Center Hall is a broad central hallway on the second floor of the White House, home of the
+                       President of the United States. It runs east to west connecting the East Sitting Hall with the
+                       West Sitting Hall. It allows access to the elevator vestibule, East and West Bedrooms, the Grand
+                       Staircase, Yellow Oval Room, the first family's private living room, and the president's bedroom.
+                       """)
+
+FamilyCenterHall.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+FamilyCenterHall.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Treaty Room (Room #6)
+#===========================================================================
+
+# White House Treaty Room.
+
+TreatyRoom = ClassOffice()
+
+TreatyRoom.NamePhrase = "Treaty Room"
+
+TreatyRoom.SetDesc("L","""
+                       The Treaty Room is located on the second floor of the White House, the official residence of the
+                       President of the United States. The room is a part of the first family's private apartments and
+                       is used as a study by the president.
+                       """)
+
+TreatyRoom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+TreatyRoom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Lincoln Bedroom (Room #6)
+#===========================================================================
+
+# White House Lincoln Bedroom.
+
+LincolnBedroom = ClassOffice()
+
+LincolnBedroom.NamePhrase = "Lincoln Bedroom"
+
+LincolnBedroom.SetDesc("L","""
+                       The Lincoln Bedroom is located in the southeast corner of the second floor of the White House,
+                       part of a guest suite that includes the Lincoln Sitting Room. The rooms are named for Abraham
+                       Lincoln, and the room that was in this location before the extensive 1948-1952 renovation was
+                       used by President Lincoln as an office. From 1929 until the Truman renovation, the room in the
+                       northwest corner of the White House now used as a Family Residence Dining Room was known as the
+                       Lincoln Bedroom and contained the Lincoln bed, and Lincoln family photographs.
+                       """)
+
+LincolnBedroom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+LincolnBedroom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Lincoln Sitting Room (Room #6)
+#===========================================================================
+
+# White House Lincoln Sitting.
+
+LincolnSitting = ClassOffice()
+
+LincolnSitting.NamePhrase = "Lincoln Sitting Room"
+
+LincolnSitting.SetDesc("L","""
+                       The Lincoln Sitting Room is a small sitting room located next to the Lincoln Bedroom on the second
+                       floor of the White House. It was used as the White House telegraph room from 1865 to 1902, until
+                       the West Wing was built. It is furnished in Victorian-style to match the bedroom. The overstuffed
+                       sofa and matching chair were formerly furnishings in the Green Room. The Kennedy restoration in
+                       1963 restored it to Victorian-style, and it has been maintained in the same style since.
+                       """)
+
+LincolnSitting.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+LincolnSitting.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Queens Bedroom (Room #6)
+#===========================================================================
+
+# White House Queens Bedroom.
+
+QueensBedroom = ClassOffice()
+
+QueensBedroom.NamePhrase = "Queens Bedroom"
+
+QueensBedroom.SetDesc("L","""
+                       The Queens Bedroom and Queens Sitting Room occupy the northeast corner of the Second Floor.
+                       When this space was completed in 1809, it was a mirror of the Lincoln Suite to the south: two
+                       very narrow bedrooms with a toilet between them. And like the Lincoln Suite, the toilet was
+                       removed by 1825 and the toilet space joined with the western bedchamber. Instead of office space,
+                       however, the western two-thirds of this space was partitioned to create storage areas.
+                       """)
+
+QueensBedroom.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+QueensBedroom.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Queens Sitting Room (Room #6)
+#===========================================================================
+
+# White House Queens Sitting Room.
+
+QueensSitting = ClassOffice()
+
+QueensSitting.NamePhrase = "Queens Sitting Room"
+
+QueensSitting.SetDesc("L","""
+                       The name of the suite of rooms is taken from the number of women royalty who've stayed in the
+                       room: Elizabeth, Queen Consort of King George VI of the United Kingdom; Queen Elizabeth II of the
+                       United Kingdom; Queen Wilhelmina of the Netherlands; and Queen Juliana of the Netherlands.
+                       """)
+
+QueensSitting.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+QueensSitting.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+#===========================================================================
+#                           White House East Wing
+#===========================================================================
+
+
+#===========================================================================
+#                                East Court (Room #6)
+#===========================================================================
+
+# East Court.
+
+EastCourt = ClassOffice()
+
+EastCourt.NamePhrase = "East Court"
+
+EastCourt.SetDesc("L","""
+                       A courtyard that leads from the Visitors Foyer to the Basement Hall.
+                       """)
+
+EastCourt.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+EastCourt.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+
+#===========================================================================
+#                            East Colonnade (Room #16)
+#===========================================================================
+
+# The White House East Colonnade.
+
+
+EastColonnade = ClassOutside()
+EastColonnade.NamePhrase = "East Colonnade"
+
+EastColonnade.SetDesc("L","""
+                       Around the corner from the Garden Room, an enclosed colonnade runs the length of the east gallery,
+                       next to the Family Theater, towards the Visitors Foyer. This hallway was an open colonnade when it
+                       was constructed in 1902 along with the first East Wing. It was glassed in when the East Wing was
+                       expanded in 1942.
+                       """)
+
+EastColonnade.SetDesc("Odor","""
+                          You can smell pine in the air, like rare perfume.
+                          """)
+
+EastColonnade.SetDesc("Sound","""
+                        You hear birdsong of surpassing loveliness. Tears spring to your eyes, you
+                        feel like bursting into song yourself.
+                           """)
+
+EastColonnade.SetDesc("Sky","""
+                        This sky is cloudy and overcast, it looks like it might rain or there may
+                        be a storm coming.
+                         """)
+
+EastColonnade.SetDesc("Ground","""
+                        You are on a stone path but you can see lawns and flowers all around.
+                            """)
+
+#===========================================================================
+#                                Family Theater (Room #6)
+#===========================================================================
+
+# White House Vermeil Room.
+
+FamilyTheater = ClassOffice()
+
+FamilyTheater.NamePhrase = "Family Theater"
+
+FamilyTheater.SetDesc("L","""
+                       With the construction of the East Wing, President Franklin D. Roosevelt had an East Terrace
+                       cloakroom converted into a movie theater. Here the president enjoyed watching news reels and took
+                       special interest in the battles fought in Europe and Asia. With 42 seats in tiered rows, the First
+                       Family and their guests can view current movies, sports games and TV shows. In March 2010, Steven
+                       Spielberg and Tom Hanks joined President Obama, members of Congress, the Joint Chiefs of Staff,
+                       Veterans of Foreign Wars (VFW) and Women in the Military Service for America Memorial for a
+                       screening of The Pacific, a series that tells the story of the Pacific front during World War II.
+                       """)
+
+FamilyTheater.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+FamilyTheater.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                                East Wing lobby (Room #6)
+#===========================================================================
+
+# White House East Wing Lobby.
+
+EastLobby = ClassOffice()
+
+EastLobby.NamePhrase = "East Wing Lobby"
+
+EastLobby.SetDesc("L","""
+                       The East Wing was originally built in 1902 as a formal entrance for party guests to the White House.
+                       The Family Theater was originally created as a cloak room to hold the many coats and hats of guests.
+                       Today, the Lobby continues to be the entrance for most formal event guests as well as tourists.
+
+                       The Lobby is a long hall that is richly paneled and leads west, past a security desk, up a short
+                       flight of stairs and prominent wheelchair ramp, to the Garden Room.
+                       """)
+
+EastLobby.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+EastLobby.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                                East Garden Room (Room #6)
+#===========================================================================
+
+# White House East Garden Room.
+
+EastGarden = ClassOffice()
+
+EastGarden.NamePhrase = "East Garden Room"
+
+EastGarden.SetDesc("L","""
+                       The Garden Room, sometimes called the East Garden Room, to distinguish it from the Palm Room,
+                       which also sometimes called the Garden Room is a corner room in the ground floor of the East
+                       Wing that provides access to the Jackie Kennedy Garden and other parts of the south lawn grounds.
+                       The area is separated only by columns from the East Colonnade corridor.
+                       """)
+
+EastGarden.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+EastGarden.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Presidential Emergency Operations Centre (Room #6)
+#===========================================================================
+
+# White House Presidential Emergency Operations Centre.
+
+Operations = ClassOffice()
+
+Operations.NamePhrase = "Presidential Emergency Operations Centre"
+
+Operations.SetDesc("L","""
+                       The President's Emergency Operations Center (PEOC) is a bunker like structure that lies underground,
+                       beneath the East Wing of the White House and serves as a secure shelter and communications center
+                       for the President of the United States and other protectees in case of an emergency.
+                       """)
+
+Operations.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+Operations.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    Office of the First Lady (Room #6)
+#===========================================================================
+
+# White House Office of the First Lady.
+
+FirstLadyOffice = ClassOffice()
+
+FirstLadyOffice.NamePhrase = "Office of the First Lady"
+
+FirstLadyOffice.SetDesc("L","""
+                       The Office of the First Lady of the United States is the staff accountable to the First Lady of
+                       the United States. The office and its responsibilities, while not mandated, have grown as the role
+                       of the First Lady has grown and formalized through the history of the United States. The Office of
+                       the First Lady is an entity of the White House Office, part of the Executive Office of the President.
+
+                       The First Lady has her own staff that includes a Chief of Staff, White House Social Secretary,
+                       Press Secretary, White House Chief Floral Designer, White House Executive Chef.
+                       """)
+
+FirstLadyOffice.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+FirstLadyOffice.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House Social Secretary (Room #6)
+#===========================================================================
+
+# White House Social Secretary.
+
+SocialOffice = ClassOffice()
+
+SocialOffice.NamePhrase = "White House Social Office"
+
+SocialOffice.SetDesc("L","""
+                       The Social Secretary is head of the White House Social Office, located in the East Wing of the
+                       White House Complex. The Social Secretary plans events ranging from those as simple as a tea for
+                       the First Lady and a single official guest, to dinners for more than 200 guests. The Social
+                       Secretary works with the White House Chief Usher to coordinate domestic staff and with the Chief
+                       of Protocol of the United States, an official within the United States Department of State, to
+                       plan state visits and accompanying state dinners. The Social Secretary works with the White House
+                       Graphics and Calligraphy Office in the production of invitations to social events.
+                       """)
+
+SocialOffice.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+SocialOffice.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House Graphics and Calligraphy Office (Room #6)
+#===========================================================================
+
+# White House Graphics and Calligraphy Office.
+
+GraphicsOffice = ClassOffice()
+
+GraphicsOffice.NamePhrase = "Graphics and Calligraphy Office"
+
+GraphicsOffice.SetDesc("L","""
+                       The Graphics and Calligraphy Office (GCO) is a unit of the Social Office at the White House, the
+                       official residence of the President of the United States. Located in the East Wing, the Graphics
+                       and Calligraphy Office coordinates and produces all non-political social invitations, place cards,
+                       presidential proclamations, letters patent, military commissions, and official greetings.
+                       """)
+
+GraphicsOffice.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+GraphicsOffice.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House Visitors Office (Room #6)
+#===========================================================================
+
+# White House Visitors Office.
+
+VisitorsOffice = ClassOffice()
+
+VisitorsOffice.NamePhrase = "Visitors Foyer"
+
+VisitorsOffice.SetDesc("L","""
+                       The White House Visitors Foyer is responsible for public tours of the White House, for maintaining
+                       a facility where the public can obtain information about the White House, and for other White House
+                       events such as the White House Easter Egg Roll, Holiday Open Houses, Spring and Fall Garden tours,
+                       State Arrival Ceremonies and other special events.
+                       """)
+
+VisitorsOffice.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+VisitorsOffice.SetDesc("Sound","You can hear mice running away from the White House Cat.")
+
+
+#===========================================================================
+#                    White House Military Office (Room #6)
+#===========================================================================
+
+# White House Military Office.
+
+MilitaryOffice = ClassOffice()
+
+MilitaryOffice.NamePhrase = "Military Office"
+
+MilitaryOffice.SetDesc("L","""
+                       The White House Military Office (WHMO), an entity of the Executive Office of the President,
+                       provides military support for White House functions, including food service, presidential
+                       transportation, medical support, emergency medical services, and hospitality services. The White
+                       House Military Office is headed by the White House Military Office Director.
+                       """)
+
+MilitaryOffice.SetDesc("Odor","""
+                          You can smell musty old ancient maps.
+                          """)
+
+MilitaryOffice.SetDesc("Sound","You can hear mice running away from the White House Cat.")
 
 
 
@@ -1267,6 +2689,25 @@ class ClassDruid(ClassPOTUSActor):
                face. His hands are hidden in the robe's sleeves.
                """
     
+    #------------
+    # AskDesc()
+    #------------
+
+    def AskDesc(self):
+
+        # Move the druid into None and give the player the mandala
+
+        #self.MoveInto(None)
+        #Global.Player.Enter(phone)
+
+        #--------------
+        # Give the Clue
+        #--------------
+
+        #return Global.kernel.respond(Global.InputString)
+        return """
+            This should get response from AIML file
+            """
     #------------
     # HelloDesc()
     #------------
@@ -1605,7 +3046,7 @@ class ClassSecretary(ClassPOTUSActor):
 
 PresidentSecretary = ClassSecretary("secretary, Presidents Secretary","dark dress,busy")
 
-PresidentSecretary.IsHim = TRUE
+PresidentSecretary.IsHer = TRUE
 PresidentSecretary.StartingLocation = Secretary
 
 #=====================================================================
@@ -1727,7 +3168,7 @@ class ClassSecretaryState(ClassPOTUSActor):
 
 SecretaryState = ClassSecretaryState("state, 'Secretary of State'","dark leather dress,sexy")
 
-SecretaryState.IsHim = TRUE
+SecretaryState.IsHer = TRUE
 SecretaryState.StartingLocation = Situation
 
 #=====================================================================
@@ -1991,7 +3432,7 @@ football.SetDesc("Taste","The football has a very bad taste.")
 #                               Nuclear Codes
 #----------------------------------------------------------------------
 
-codes = ClassItem("Codes, nuclear codes, black wallet")
+codes = ClassItem("wallet, codes, nuclear codes, black wallet")
 
 codes.Bulk = 1
 codes.StartingLocation = OvalOffice
@@ -1999,12 +3440,12 @@ codes.Value = 60
 codes.Weight = 1
 
 codes.SetDesc("Feel","""
-                    The nuclear codes feel extremly dangerous.
+                    The nuclear codes wallet feels extremly dangerous.
                        """)
 
 codes.SetDesc("L","""
-                    The nuclear codes is a small black wallet with the
-                    president launch codes needed to fire nuclear weapons.
+                    The nuclear codes wallet is a small black wallet with the
+                    presidental launch codes needed to fire nuclear weapons.
                     The main launch all code seems to be 1234, I think this
                     may be a test code and not actually work.
                     """)
@@ -2232,6 +3673,9 @@ Bird.SetDesc("Taste","""
 #
 # It's annoying, but not impossible.
 
+#-----------------------------------------------------
+#                       West Wing
+#-----------------------------------------------------
 
 OvalOffice.Map = {North:     Fireplace,
                   Northeast: Secretary,
@@ -2264,9 +3708,6 @@ RoseGarden.Map = {North:    WestColonade,
                  Southeast: SouthLawn,
                  West:      OvalOffice}
 
-KennedyGarden.Map = {Southwest: SouthLawn,
-                  West:      RoseGarden}
-
 SouthLawn.Map = {Northeast: KennedyGarden,
                   South:     MarineOne,
                   Northwest: RoseGarden,
@@ -2277,24 +3718,20 @@ MarineOne.Map = {North:     SouthLawn,
                  Up:        OvalOffice,
                  Down:      SouthLawn}
 
-WestColonade.Map = {North:     PressCorps,
-              East:      PalmRoom,
-              Southeast: KennedyGarden,
-              South:     RoseGarden,
-              Southwest: OvalOffice,
-              West:      Cabinet,
-              Northwest: PressBriefing}
+WestColonade.Map = {North: PressCorps,
+                     West: Cabinet,
+                     East: PalmRoom,
+                    South: RoseGarden,
+                Southwest: OvalOffice,
+                Northeast: WestCourt,
+                Northwest: PressBriefing}
 
-PalmRoom.Map = {Southwest: RoseGarden,
-                West:      WestColonade,
-                Northwest: PressCorps}
-
-FirstStaircase.Map = {North:     PressBriefing,
+FirstStaircase.Map = {North: PressBriefing,
                   Northeast: PressSecretary,
-                  East:      Cabinet,
-                  South:     Corridor,
-                  West:      Roosevelt,
-                  Down:      GroundStaircase}
+                       East: Cabinet,
+                      South: Corridor,
+                       West: Roosevelt,
+                       Down: GroundStaircase}
 
 GroundStaircase.Map = {South: NavyMess,
                    Southwest: Situation,
@@ -2365,6 +3802,250 @@ PressBriefing.Map = {East: PressCorps,
 PressCorps.Map = {Northeast:    PalmRoom,
                      South:     WestColonade,
                      West:      PressBriefing}
+
+PalmRoom.Map = {Southwest: RoseGarden,
+                Southeast: MedicalUnit,
+                North:     WestCourt,
+                West:      WestColonade,
+                East:      CenterHall,
+                Northwest: PressCorps,
+                Northeast: Kitchen}
+
+#-----------------------------------------------------
+#            Executive Residence - Ground Floor
+#-----------------------------------------------------
+
+WestCourt.Map = {Southwest: RoseGarden,
+                 Southeast: MedicalUnit,
+                     South: PalmRoom,
+                      East: BasementHall}
+
+Kitchen.Map =      {East: SecretServiceOffice,
+               Northeast: BasementHall,
+                   South: MedicalUnit,
+               Southeast: MapRoom,
+               Southwest: PalmRoom}
+
+SecretServiceOffice.Map =  {East: CenterHall,
+                       Northeast: BasementHall,
+                           South: MapRoom,
+                       Southeast: DiplomaticRoom,
+                       Southwest: MedicalUnit}
+
+MedicalUnit.Map =          {East: MapRoom,
+                       Northeast: CenterHall,
+                            West: PalmRoom,
+                           North: Kitchen}
+
+MapRoom.Map =              {East: DiplomaticRoom,
+                       Northwest: Kitchen,
+                       Northeast: CenterHall,
+                            West: MedicalUnit,
+                           North: SecretServiceOffice}
+
+CenterHall.Map =           {East: VisitorsOffice,
+                       Northwest: SecretServiceOffice,
+                       Northeast: Curator,
+                            West: PalmRoom,
+                           North: BasementHall,
+                           South: DiplomaticRoom,
+                       Southwest: MapRoom,
+                       Southeast: ChinaRoom}
+
+BasementHall.Map =         {East: EastCourt,
+                            West: WestCourt,
+                           North: BasementHall,
+                           South: CenterHall,
+                       Southwest: SecretServiceOffice,
+                       Southeast: Curator}
+
+Curator.Map =              {East: StateStaircase,
+                            West: SecretServiceOffice,
+                           North: BasementHall,
+                           South: CenterHall,
+                       Southwest: DiplomaticRoom,
+                       Southeast: ChinaRoom}
+
+StateStaircase.Map =       {East: Library,
+                            West: Curator,
+                           North: BasementHall,
+                           South: CenterHall,
+                              Up: GrandStaircase}
+
+DiplomaticRoom.Map =       {East: ChinaRoom,
+                            West: MapRoom,
+                           North: CenterHall,
+                           South: SouthLawn,
+                       Southwest: SecretServiceOffice,
+                       Southeast: Curator}
+
+Library.Map =              {West: StateStaircase,
+                            East: VisitorsOffice,
+                           North: CenterHall,
+                           South: VermeilRoom,
+                       Southwest: BasementHall,
+                       Southeast: EastGarden}
+
+ChinaRoom.Map =            {North: StateStaircase,
+                        Northwest: CenterHall,
+                        Northeast: Library,
+                             West: DiplomaticRoom,
+                             East: VermeilRoom}
+
+VermeilRoom.Map =          {North: Library,
+                        Northwest: StateStaircase,
+                        Northeast: Library,
+                             West: DiplomaticRoom,
+                             East: VisitorsOffice}
+
+
+
+#-----------------------------------------------------
+#               Executive Residence - State (1st)
+#-----------------------------------------------------
+
+GrandStaircase.Map =       {West: EntranceHall,
+                           South: GreenRoom,
+                       Southwest: CrossHall,
+                       Southeast: EastRoom,
+                              Up: ResidenceStaircase,
+                            Down: StateStaircase}
+
+EntranceHall.Map =        {North: NorthPortico,
+                           South: CrossHall,
+                            West: FamilyDining,
+                       Southeast: CrossHall,
+                       Southwest: CrossHall,
+                            East: GrandStaircase}
+
+CrossHall.Map =           {North: EntranceHall,
+                           South: BlueRoom,
+                            East: EastRoom,
+                            West: StateDining,
+                       Southeast: RedRoom,
+                       Southwest: GreenRoom,
+                       Northeast: GrandStaircase}
+
+FamilyDining.Map =        {South: StateDining,
+                            East: EntranceHall,
+                       Southeast: CrossHall}
+
+StateDining.Map =        {North: FamilyDining,
+                            East: RedRoom,
+                       Northeast: CrossHall}
+
+RedRoom.Map =             {North: CrossHall,
+                            East: BlueRoom,
+                            West: StateDining}
+
+BlueRoom.Map =             {North: CrossHall,
+                             East: GreenRoom,
+                             West: RedRoom,
+                            South: SouthPortico,
+                        Southeast: SouthPortico,
+                        Southwest: SouthPortico}
+
+GreenRoom.Map =             {North: CrossHall,
+                            East: EastRoom,
+                            West: BlueRoom}
+
+#-----------------------------------------------------
+#               Executive Residence - Family (2nd)
+#-----------------------------------------------------
+
+ResidenceStaircase.Map =   {West: EntranceHall,
+                           South: StarLanding,
+                       Southwest: CrossHall,
+                       Southeast: EastRoom,
+                            Down: GrandStaircase}
+
+StarLanding.Map =         {North: ResidenceStaircase,
+                           South: TreatyRoom,
+                            West: FamilyCenterHall,
+                            East: EastSittingHall}
+
+FamilyCenterHall.Map =     {North: NorthHall,
+                           Northwest: WestRoom,
+                           Northeast: EastRoom,
+                           Southwest: SittingRoom,
+                           South: YellowOvalRoom,
+                            West: WestSittingHall,
+                            East: StarLanding}
+
+
+WestRoom.Map =            {South: FamilyCenterHall,
+                            East: NorthHall}
+
+EastRoom.Map =            {South: FamilyCenterHall,
+                            West: NorthHall}
+
+YellowOvalRoom.Map =      {North: FamilyCenterHall,
+                           South: TrumanBalcony,
+                            West: SittingRoom,
+                            East: TreatyRoom,
+                       Southeast: TrumanBalcony,
+                       Southwest: TrumanBalcony}
+
+
+SittingRoom.Map =         {North: FamilyCenterHall,
+                           South: TrumanBalcony,
+                            West: PresidentsBedroom,
+                            East: YellowOvalRoom}
+
+TreatyRoom.Map =          {North: StarLanding,
+                           South: TrumanBalcony,
+                            West: YellowOvalRoom}
+
+
+
+#-----------------------------------------------------
+#                       East Wing
+#-----------------------------------------------------
+
+EastCourt.Map = {Southwest: KennedyGarden,
+                 Southeast: EastColonnade,
+                     South: VisitorsOffice,
+                      West: BasementHall}
+
+VisitorsOffice.Map = {North: EastCourt,
+                       East: EastColonnade,
+                      South: KennedyGarden,
+                       West: CenterHall,
+                  Southeast: KennedyGarden,
+                  Northeast: FamilyTheater}
+
+
+FamilyTheater.Map =  {East: EastGarden,
+                     South: EastColonnade,
+                      West: VisitorsOffice}
+
+EastColonnade.Map = {North: FamilyTheater,
+                      East: EastGarden,
+                     South: KennedyGarden,
+                      West: VisitorsOffice}
+
+KennedyGarden.Map = {Southwest: SouthLawn,
+                          West: VisitorsOffice,
+                         North: EastColonnade}
+
+EastGarden.Map =          {East: EastLobby,
+                           West: EastColonnade,
+                      Northwest: FamilyTheater,
+                      Northeast: Operations,
+                      Southeast: FirstLadyOffice,
+                           Down: Operations}
+
+EastLobby.Map =          {West: EastGarden,
+                         North: Operations,
+                         South: FirstLadyOffice,
+                     Northeast: GraphicsOffice,
+                          Down: Operations}
+
+Operations.Map =        {South: EastLobby,
+                     Southwest: EastGarden,
+                            Up: Operations}
+
+
 
 #*********************************************************************
 #                   End of POTUS Game Library
